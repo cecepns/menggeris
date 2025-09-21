@@ -22,6 +22,7 @@ import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import AdminLayout from './components/admin/AdminLayout';
 import ScrollToTop from './components/ScrollToTop';
+import WhatsAppButton from './components/WhatsAppButton';
 
 function App() {
   useEffect(() => {
@@ -37,6 +38,7 @@ function App() {
     <Router>
       <ScrollToTop />
       <div className="min-h-screen bg-cream-50 overflow-x-hidden">
+        <WhatsAppButton />
         <Routes>
           {/* Landing Page Routes */}
           <Route path="/" element={
