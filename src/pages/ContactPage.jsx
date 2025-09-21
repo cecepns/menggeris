@@ -158,7 +158,7 @@ I'm interested in learning more about Menggeris products. Could you please provi
                 <div className="flex items-start space-x-4">
                   <MapPin className="h-6 w-6 text-wood-maroon mt-1 flex-shrink-0" />
                   <div>
-                    <h3 className="font-semibold text-gray-900">Office Address</h3>
+                    <h3 className="font-semibold text-gray-900">Workshop and store</h3>
                     <p className="text-gray-600">
                       {settings.address || 'Bumi Sempaja City, Block CD No.22, Samarinda – East Borneo, Indonesia'}
                     </p>
