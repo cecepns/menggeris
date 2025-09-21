@@ -6,6 +6,7 @@ const SettingsManagement = () => {
   const [settings, setSettings] = useState({
     company_name: 'Menggeris',
     address: '',
+    warehouse_address: 'Jl.M.T Haryono No.50, RT.01, Desa Loh Sumber, Kec. Loa Kulu, Kutai Kartanegara75571',
     phone: '',
     email: '',
     about: '',
@@ -122,7 +123,7 @@ const SettingsManagement = () => {
 
               <div className="md:col-span-2">
                 <label htmlFor="address" className="block text-sm font-medium text-gray-700 mb-2">
-                  Address
+                  Office Address
                 </label>
                 <textarea
                   id="address"
@@ -131,7 +132,22 @@ const SettingsManagement = () => {
                   value={settings.address}
                   onChange={handleChange}
                   className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-wood-maroon focus:border-transparent"
-                  placeholder="Enter company address"
+                  placeholder="Enter office address"
+                />
+              </div>
+
+              <div className="md:col-span-2">
+                <label htmlFor="warehouse_address" className="block text-sm font-medium text-gray-700 mb-2">
+                  Warehouse Address
+                </label>
+                <textarea
+                  id="warehouse_address"
+                  name="warehouse_address"
+                  rows={3}
+                  value={settings.warehouse_address}
+                  onChange={handleChange}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-wood-maroon focus:border-transparent"
+                  placeholder="Enter warehouse address"
                 />
               </div>
             </div>

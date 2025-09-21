@@ -78,10 +78,10 @@ const Footer = () => {
               >
                 <Instagram className="h-6 w-6" />
                 <div className="flex items-center space-x-1">
+                  <span>menggeris_official</span>
                   <span>
                     <img src={VerifiedLogo} className="w-4 h-auto" />{" "}
                   </span>
-                  <span>menggeris_official</span>
                 </div>
               </a>
             </div>
@@ -113,13 +113,22 @@ const Footer = () => {
           {/* Address */}
           <div>
             <h4 className="text-lg font-semibold mb-4">Address</h4>
-            <div className="space-y-3 text-sm">
+            <div className="space-y-4 text-sm">
+              {/* Office Address */}
               <div className="flex items-start space-x-3">
                 <MapPin className="h-5 w-5 text-wood-light mt-0.5 flex-shrink-0" />
                 <div className="text-gray-300">
-                  <div className="font-medium">Workshop & Store:</div>
-                  <div>Bumi Sempaja City, Block CD No.22</div>
-                  <div>Samarinda – East Borneo, Indonesia</div>
+                  <div className="font-medium">Office Address:</div>
+                  <div>{settings.address || 'Bumi Sempaja City, Block CD No.22, Samarinda – East Borneo, Indonesia'}</div>
+                </div>
+              </div>
+              
+              {/* Warehouse Address */}
+              <div className="flex items-start space-x-3">
+                <MapPin className="h-5 w-5 text-wood-light mt-0.5 flex-shrink-0" />
+                <div className="text-gray-300">
+                  <div className="font-medium">Warehouse Address:</div>
+                  <div>{settings.warehouse_address || 'Jl.M.T Haryono No.50, RT.01, Desa Loh Sumber, Kec. Loa Kulu, Kutai Kartanegara75571'}</div>
                 </div>
               </div>
             </div>

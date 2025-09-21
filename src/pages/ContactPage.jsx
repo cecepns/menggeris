@@ -154,13 +154,24 @@ I'm interested in learning more about Menggeris products. Could you please provi
                   </div>
                 </div>
 
-                {/* Address */}
+                {/* Office Address */}
                 <div className="flex items-start space-x-4">
                   <MapPin className="h-6 w-6 text-wood-maroon mt-1 flex-shrink-0" />
                   <div>
-                    <h3 className="font-semibold text-gray-900">Address</h3>
+                    <h3 className="font-semibold text-gray-900">Office Address</h3>
                     <p className="text-gray-600">
                       {settings.address || 'Bumi Sempaja City, Block CD No.22, Samarinda – East Borneo, Indonesia'}
+                    </p>
+                  </div>
+                </div>
+
+                {/* Warehouse Address */}
+                <div className="flex items-start space-x-4">
+                  <MapPin className="h-6 w-6 text-wood-maroon mt-1 flex-shrink-0" />
+                  <div>
+                    <h3 className="font-semibold text-gray-900">Warehouse Address</h3>
+                    <p className="text-gray-600">
+                      {settings.warehouse_address || 'Jl.M.T Haryono No.50, RT.01, Desa Loh Sumber, Kec. Loa Kulu, Kutai Kartanegara75571'}
                     </p>
                   </div>
                 </div>
