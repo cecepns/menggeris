@@ -14,9 +14,9 @@ import { productAPI, settingsAPI } from "../utils/api";
 import Banner from "../assets/1.png";
 import Pattern from "../assets/pattern.png";
 import WonderfullLogo from "../assets/wonderfull.png";
-import Video1 from "../assets/video/Short 1.mp4";
-import Video2 from "../assets/video/Short 4.mp4";
-import Video3 from "../assets/video/Short 5.mp4";
+// import Video1 from "../assets/video/Short 1.mp4";
+// import Video2 from "../assets/video/Short 4.mp4";
+// import Video3 from "../assets/video/Short 5.mp4";
 
 const HomePage = () => {
   const [featuredProducts, setFeaturedProducts] = useState([]);
