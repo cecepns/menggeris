@@ -512,7 +512,7 @@ app.get('/api/settings', async (req, res) => {
 
 app.put('/api/settings', authenticateToken, async (req, res) => {
   try {
-    const { company_name, address, phone, email, about, maps } = req.body;
+    const { company_name, address, warehouse_address, phone, email, about, maps } = req.body;
 
     const connection = await pool.getConnection();
     
@@ -522,14 +522,14 @@ app.put('/api/settings', authenticateToken, async (req, res) => {
     if (existing.length > 0) {
       // Update existing settings
       await connection.execute(
-        'UPDATE settings SET company_name = ?, address = ?, phone = ?, email = ?, about = ?, maps = ?, updated_at = NOW() WHERE id = ?',
-        [company_name, address, phone, email, about, maps, existing[0].id]
+        'UPDATE settings SET company_name = ?, address = ?, warehouse_address = ?, phone = ?, email = ?, about = ?, maps = ?, updated_at = NOW() WHERE id = ?',
+        [company_name, address, warehouse_address, phone, email, about, maps, existing[0].id]
       );
     } else {
       // Insert new settings
       await connection.execute(
-        'INSERT INTO settings (company_name, address, phone, email, about, maps) VALUES (?, ?, ?, ?, ?, ?)',
-        [company_name, address, phone, email, about, maps]
+        'INSERT INTO settings (company_name, address, warehouse_address, phone, email, about, maps) VALUES (?, ?, ?, ?, ?, ?, ?)',
+        [company_name, address, warehouse_address, phone, email, about, maps]
       );
     }
 

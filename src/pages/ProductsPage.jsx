@@ -71,13 +71,10 @@ const ProductsPage = () => {
   return (
     <div className="pt-16 min-h-screen bg-cream-50">
       {/* Header */}
-      <section 
-        className="relative h-96 text-white py-16 bg-cover bg-center bg-no-repeat"
-        
-      >
+      <section className="relative h-96 text-white py-16 bg-cover bg-center bg-no-repeat">
         {/* Overlay for better text readability */}
         <div className="absolute inset-0 bg-wood-dark"></div>
-        
+
         <div className="relative max-w-7xl mx-auto px-4 h-full flex flex-col justify-center">
           <h1 className="text-3xl md:text-4xl font-display font-bold text-center mb-4">
             Our Collections
@@ -117,7 +114,7 @@ const ProductsPage = () => {
                 Filters
               </button>
 
-              <div className="flex border border-gray-300 rounded-lg">
+              {/* <div className="flex border border-gray-300 rounded-lg">
                 <button
                   onClick={() => setViewMode("grid")}
                   className={`p-2 ${
@@ -138,7 +135,7 @@ const ProductsPage = () => {
                 >
                   <List className="h-5 w-5" />
                 </button>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>
@@ -194,14 +191,14 @@ const ProductsPage = () => {
                 <div
                   className={
                     viewMode === "grid"
-                      ? "grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6"
+                      ? "grid grid-cols-2 xl:grid-cols-3 gap-6"
                       : "space-y-6"
                   }
                 >
                   {products.map((product) => (
                     <div
                       key={product.id}
-                      className={`bg-cream-100 rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow ${
+                      className={`bg-white rounded-lg overflow-hidden hover:shadow-xl ${
                         viewMode === "list" ? "flex" : ""
                       }`}
                     >
@@ -223,22 +220,24 @@ const ProductsPage = () => {
                       <div
                         className={`p-6 ${viewMode === "list" ? "flex-1" : ""}`}
                       >
-                        <h3 className="text-xl font-bold text-gray-900 mb-2">
+                        <h3 className="text-md md:text-xl font-bold text-gray-900 mb-2">
                           {product.name}
                         </h3>
-                        <p
-                          dangerouslySetInnerHTML={{
-                            __html: product.description,
-                          }}
-                          className="text-gray-600 mb-4 line-clamp-2"
-                        />
+                        <div className="hidden md:block">
+                          <p
+                            dangerouslySetInnerHTML={{
+                              __html: product.description,
+                            }}
+                            className="text-gray-600 mb-4 line-clamp-2"
+                          />
+                        </div>
                         <div className="flex justify-between items-center">
-                          <span className="text-2xl font-bold text-wood-maroon">
+                          <span className="hidden md:block text-2xl font-bold text-wood-maroon">
                             ${product.price?.toLocaleString()}
                           </span>
                           <Link
                             to={`/product/${product.id}`}
-                            className="bg-wood-dark text-white px-4 py-2 rounded-lg hover:bg-wood-DEFAULT transition-colors"
+                            className="text-xs md:text-base text-wood-dark underline rounded-lg hover:bg-wood-DEFAULT transition-all duration-300 ease-in-out hover:scale-105"
                           >
                             View Details
                           </Link>

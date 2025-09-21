@@ -167,11 +167,11 @@ const HomePage = () => {
               <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-wood-maroon"></div>
             </div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="grid grid-cols-2 lg:grid-cols-3 gap-8">
               {featuredProducts.map((product, index) => (
                 <div
                   key={product.id}
-                  className="bg-cream-100 rounded-lg shadow-md overflow-hidden hover:bg-white hover:shadow-2xl hover:scale-105 transition-all duration-300 ease-in-out cursor-pointer"
+                  className="bg-white rounded-lg overflow-hidden hover:bg-white hover:shadow-2xl hover:scale-105 transition-all duration-300 ease-in-out cursor-pointer"
                   data-aos="fade-up"
                   data-aos-delay={index * 100}
                 >
@@ -187,20 +187,24 @@ const HomePage = () => {
                     />
                   </div>
                   <div className="p-6">
-                    <h3 className="text-xl font-bold text-gray-900 mb-2">
+                    <h3 className="text-md md:text-xl font-bold text-gray-900 mb-2">
                       {product.name}
                     </h3>
-                    <div
-                      dangerouslySetInnerHTML={{ __html: product.description }}
-                      className="text-gray-600 mb-4 line-clamp-2"
-                    />
+                    <div className="hidden md:block ">
+                      <div
+                        dangerouslySetInnerHTML={{
+                          __html: product.description,
+                        }}
+                        className="text-gray-600 mb-4 line-clamp-2"
+                      />
+                    </div>
                     <div className="flex justify-between items-center">
-                      <span className="text-2xl font-bold text-wood-maroon">
+                      <span className="hidden md:block text-2xl font-bold text-wood-maroon">
                         ${product.price?.toLocaleString()}
                       </span>
                       <Link
                         to={`/product/${product.id}`}
-                        className="bg-wood-dark text-white px-4 py-2 rounded-lg hover:bg-wood-DEFAULT transition-all duration-300 ease-in-out hover:scale-105"
+                        className="text-xs md:text-base text-wood-dark underline rounded-lg hover:bg-wood-DEFAULT transition-all duration-300 ease-in-out hover:scale-105"
                       >
                         View Details
                       </Link>
@@ -265,7 +269,7 @@ const HomePage = () => {
             </div>
           ) : settings.maps ? (
             <div className="rounded-lg overflow-hidden" data-aos="fade-up">
-              <div 
+              <div
                 className="max-w-4xl m-auto w-full h-96 md:h-[500px]"
                 dangerouslySetInnerHTML={{ __html: settings.maps }}
               />
@@ -278,7 +282,6 @@ const HomePage = () => {
               </p>
             </div>
           )}
-
         </div>
       </section>
     </div>
