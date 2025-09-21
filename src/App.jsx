@@ -36,7 +36,7 @@ function App() {
   return (
     <Router>
       <ScrollToTop />
-      <div className="min-h-screen bg-cream-50">
+      <div className="min-h-screen bg-cream-50 overflow-x-hidden">
         <Routes>
           {/* Landing Page Routes */}
           <Route path="/" element={

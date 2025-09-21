@@ -25,7 +25,7 @@ const HomePage = () => {
   };
 
   return (
-    <div className="pt-16 overflow-x-hidden">
+    <div className="pt-16">
       {/* Hero Section */}
       <section 
         className="text-white py-20 relative"
