@@ -20,19 +20,6 @@ const ProductsPage = () => {
   const [viewMode] = useState("grid");
   const [showFilters, setShowFilters] = useState(false);
 
-  // Initialize search query from URL parameter
-  useEffect(() => {
-    const searchParam = searchParams.get('search');
-    if (searchParam) {
-      setSearchQuery(searchParam);
-    }
-  }, [searchParams]);
-
-  useEffect(() => {
-    fetchCategories();
-    fetchProducts();
-  }, [fetchProducts]);
-
   const fetchProducts = useCallback(async () => {
     try {
       setLoading(true);
@@ -49,6 +36,19 @@ const ProductsPage = () => {
       setLoading(false);
     }
   }, [currentPage, selectedCategory, searchQuery]);
+
+  // Initialize search query from URL parameter
+  useEffect(() => {
+    const searchParam = searchParams.get('search');
+    if (searchParam) {
+      setSearchQuery(searchParam);
+    }
+  }, [searchParams]);
+
+  useEffect(() => {
+    fetchCategories();
+    fetchProducts();
+  }, [fetchProducts]);
 
   const fetchCategories = async () => {
     try {
