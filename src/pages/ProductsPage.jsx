@@ -1,16 +1,15 @@
-import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { useState, useEffect, useCallback } from "react";
+import { Link, useSearchParams } from "react-router-dom";
 import {
   Search,
   Filter,
-  Grid,
-  List,
   ChevronLeft,
   ChevronRight,
 } from "lucide-react";
 import { productAPI, categoryAPI } from "../utils/api";
 
 const ProductsPage = () => {
+  const [searchParams, setSearchParams] = useSearchParams();
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -18,15 +17,23 @@ const ProductsPage = () => {
   const [totalPages, setTotalPages] = useState(1);
   const [selectedCategory, setSelectedCategory] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
-  const [viewMode, setViewMode] = useState("grid");
+  const [viewMode] = useState("grid");
   const [showFilters, setShowFilters] = useState(false);
+
+  // Initialize search query from URL parameter
+  useEffect(() => {
+    const searchParam = searchParams.get('search');
+    if (searchParam) {
+      setSearchQuery(searchParam);
+    }
+  }, [searchParams]);
 
   useEffect(() => {
     fetchCategories();
     fetchProducts();
-  }, [currentPage, selectedCategory, searchQuery]);
+  }, [fetchProducts]);
 
-  const fetchProducts = async () => {
+  const fetchProducts = useCallback(async () => {
     try {
       setLoading(true);
       const response = await productAPI.getAll(
@@ -41,7 +48,7 @@ const ProductsPage = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [currentPage, selectedCategory, searchQuery]);
 
   const fetchCategories = async () => {
     try {
@@ -55,6 +62,14 @@ const ProductsPage = () => {
   const handleSearch = (e) => {
     e.preventDefault();
     setCurrentPage(1);
+    // Update URL with search parameter
+    const newSearchParams = new URLSearchParams(searchParams);
+    if (searchQuery.trim()) {
+      newSearchParams.set('search', searchQuery.trim());
+    } else {
+      newSearchParams.delete('search');
+    }
+    setSearchParams(newSearchParams);
     fetchProducts();
   };
 

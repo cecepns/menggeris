@@ -1,15 +1,30 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import { ArrowRight, Star, Award, Leaf, Clock, MapPin } from "lucide-react";
+import { Link, useNavigate } from "react-router-dom";
+import {
+  ArrowRight,
+  Star,
+  Award,
+  Leaf,
+  Clock,
+  MapPin,
+  Play,
+  Search,
+} from "lucide-react";
 import { productAPI, settingsAPI } from "../utils/api";
 import Banner from "../assets/1.png";
 import Pattern from "../assets/pattern.png";
+import WonderfullLogo from "../assets/wonderfull.png";
+import Video1 from "../assets/video/Short 1.mp4";
+import Video2 from "../assets/video/Short 4.mp4";
+import Video3 from "../assets/video/Short 5.mp4";
 
 const HomePage = () => {
   const [featuredProducts, setFeaturedProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [settings, setSettings] = useState({});
   const [settingsLoading, setSettingsLoading] = useState(true);
+  const [searchQuery, setSearchQuery] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetchFeaturedProducts();
@@ -19,7 +34,7 @@ const HomePage = () => {
   const fetchFeaturedProducts = async () => {
     try {
       const response = await productAPI.getAll(1, "", "");
-      setFeaturedProducts(response.data.data.slice(0, 6));
+      setFeaturedProducts(response.data.data.slice(0, 4));
     } catch (error) {
       console.error("Error fetching featured products:", error);
     } finally {
@@ -35,6 +50,15 @@ const HomePage = () => {
       console.error("Error fetching settings:", error);
     } finally {
       setSettingsLoading(false);
+    }
+  };
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    if (searchQuery.trim()) {
+      navigate(`/products?search=${encodeURIComponent(searchQuery.trim())}`);
+    } else {
+      navigate("/products");
     }
   };
 
@@ -98,7 +122,10 @@ const HomePage = () => {
             <h2 className="text-3xl md:text-4xl font-display font-bold text-gray-900 mb-4">
               Why Choose Menggeris?
             </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto" data-aos="fade-up">
+            <p
+              className="text-xl text-gray-600 max-w-3xl mx-auto"
+              data-aos="fade-up"
+            >
               Discover what makes our wooden timepieces unique and exceptional
             </p>
           </div>
@@ -154,10 +181,16 @@ const HomePage = () => {
       <section className="py-16 bg-cream-50">
         <div className="max-w-7xl mx-auto px-4">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-display font-bold text-gray-900 mb-4" data-aos="fade-right">
+            <h2
+              className="text-3xl md:text-4xl font-display font-bold text-gray-900 mb-4"
+              data-aos="fade-right"
+            >
               Featured Collections
             </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto" data-aos="fade-up">
+            <p
+              className="text-xl text-gray-600 max-w-3xl mx-auto"
+              data-aos="fade-up"
+            >
               Explore our handpicked selection of premium wooden timepieces
             </p>
           </div>
@@ -167,7 +200,7 @@ const HomePage = () => {
               <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-wood-maroon"></div>
             </div>
           ) : (
-            <div className="grid grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
               {featuredProducts.map((product, index) => (
                 <div
                   key={product.id}
@@ -227,6 +260,67 @@ const HomePage = () => {
         </div>
       </section>
 
+      {/* Search Product Section */}
+      <section className="py-20 bg-white relative overflow-hidden">
+        {/* <div className="absolute inset-0 bg-gradient-to-r from-black/20 to-black/10"></div> */}
+        <div className="max-w-4xl mx-auto px-4 relative z-10">
+          <div className="text-center mb-12" data-aos="fade-up">
+            <h2 className="text-3xl md:text-5xl font-display font-bold mb-6 leading-tight text-gray-900">
+              Bringing Nature&apos;s Craft
+              <br />
+              <span className="text-wood-light">to the World</span>
+            </h2>
+            <p className="text-xl text-slate-800 max-w-2xl mx-auto leading-relaxed">
+              Discover our exquisite collection of wooden timepieces crafted
+              from the finest East Borneo wood
+            </p>
+          </div>
+
+          <div
+            className="max-w-2xl mx-auto"
+            data-aos="fade-up"
+            data-aos-delay="200"
+          >
+            <form onSubmit={handleSearch} className="relative">
+              <div className="flex flex-col sm:flex-row gap-4">
+                <div className="relative flex-1">
+                  <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                    <Search className="h-5 w-5 text-gray-400" />
+                  </div>
+                  <input
+                    type="text"
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    placeholder="Search for wooden watches, collections, or styles..."
+                    className="w-full pl-12 pr-4 py-4 border border-[#d4a574] rounded-xl text-slate-800 placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-wood-light focus:border-transparent transition-all duration-300 hover:bg-white/20"
+                  />
+                </div>
+                <button
+                  type="submit"
+                  className="bg-wood-dark text-white px-8 py-4 rounded-lg font-semibold text-lg flex items-center justify-center group hover:bg-wood-DEFAULT transition-all duration-300 ease-in-out"
+                >
+                  <Search className="h-5 w-5 mr-2 group-hover:scale-110 transition-transform" />
+                  Search
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        {/* Decorative Elements */}
+        <div className="absolute top-0 left-0 w-full h-full overflow-hidden">
+          <div className="absolute top-20 left-10 w-20 h-20 bg-wood-light/10 rounded-full blur-2xl animate-pulse"></div>
+          <div
+            className="absolute bottom-20 right-10 w-32 h-32 bg-white/5 rounded-full blur-3xl animate-pulse"
+            style={{ animationDelay: "2s" }}
+          ></div>
+          <div
+            className="absolute top-1/2 left-1/4 w-16 h-16 bg-wood-light/5 rounded-full blur-xl animate-pulse"
+            style={{ animationDelay: "4s" }}
+          ></div>
+        </div>
+      </section>
+
       {/* CTA Section */}
       <section className="bg-wood-dark text-white py-16">
         <div className="max-w-4xl mx-auto px-4 text-center" data-aos="fade-up">
@@ -282,6 +376,24 @@ const HomePage = () => {
               </p>
             </div>
           )}
+        </div>
+      </section>
+
+      {/* Proud to be part of Section */}
+      <section className="py-16 bg-white">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="text-center" data-aos="fade-up">
+            <h2 className="text-3xl md:text-4xl font-display font-bold text-gray-900 mb-8">
+              Proud to be part of
+            </h2>
+            <div className="flex justify-center items-center">
+              <img
+                src={WonderfullLogo}
+                alt="Wonderful Indonesia"
+                className="h-20 md:h-24 w-auto object-contain"
+              />
+            </div>
+          </div>
         </div>
       </section>
     </div>
