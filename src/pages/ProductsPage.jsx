@@ -71,8 +71,14 @@ const ProductsPage = () => {
   return (
     <div className="pt-16 min-h-screen bg-cream-50">
       {/* Header */}
-      <section className="bg-wood-dark text-white py-12">
-        <div className="max-w-7xl mx-auto px-4">
+      <section 
+        className="relative h-96 text-white py-16 bg-cover bg-center bg-no-repeat"
+        
+      >
+        {/* Overlay for better text readability */}
+        <div className="absolute inset-0 bg-wood-dark"></div>
+        
+        <div className="relative max-w-7xl mx-auto px-4 h-full flex flex-col justify-center">
           <h1 className="text-3xl md:text-4xl font-display font-bold text-center mb-4">
             Our Collections
           </h1>

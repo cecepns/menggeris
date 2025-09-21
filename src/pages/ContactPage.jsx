@@ -29,12 +29,31 @@ const ContactPage = () => {
     e.preventDefault();
     setLoading(true);
     
-    // Simulate form submission
-    setTimeout(() => {
-      alert('Thank you for your message! We will get back to you soon.');
-      setFormData({ name: '', email: '', subject: '', message: '' });
-      setLoading(false);
-    }, 1000);
+    // Redirect to WhatsApp with form data
+    const phoneNumber = settings.phone || '+62 811-1111-1412';
+    const formattedPhone = formatPhoneNumber(phoneNumber);
+
+    // Create WhatsApp message with form data
+    const message = `Hi! I'm ${formData.name} (${formData.email}).
+
+Subject: ${formData.subject}
+
+Message: ${formData.message}
+
+I'm interested in learning more about Menggeris products. Could you please provide more information?`;
+    
+    // Encode message for URL
+    const encodedMessage = encodeURIComponent(message);
+    
+    // Create WhatsApp URL
+    const whatsappUrl = `https://wa.me/${formattedPhone.replace('+', '')}?text=${encodedMessage}`;
+    
+    // Open WhatsApp
+    window.open(whatsappUrl, '_blank');
+    
+    // Reset form and loading state
+    setFormData({ name: '', email: '', subject: '', message: '' });
+    setLoading(false);
   };
 
   const handleChange = (e) => {
@@ -44,9 +63,7 @@ const ContactPage = () => {
     });
   };
 
-  const handleWhatsAppRedirect = () => {
-    const phoneNumber = settings.phone || '+62 811-1111-1412';
-    
+  const formatPhoneNumber = (phoneNumber) => {
     // Format phone number (remove spaces, dashes, and ensure it starts with country code)
     let formattedPhone = phoneNumber.replace(/[\s\-()]/g, '');
     
@@ -60,6 +77,13 @@ const ContactPage = () => {
         formattedPhone = '+' + formattedPhone;
       }
     }
+    
+    return formattedPhone;
+  };
+
+  const handleWhatsAppRedirect = () => {
+    const phoneNumber = settings.phone || '+62 811-1111-1412';
+    const formattedPhone = formatPhoneNumber(phoneNumber);
 
     // Create WhatsApp message
     const message = `Hi! I'm interested in learning more about Menggeris products. Could you please provide more information?`;
@@ -77,11 +101,19 @@ const ContactPage = () => {
   return (
     <div className="pt-16 min-h-screen bg-cream-50">
       {/* Header */}
-      <section className="bg-wood-dark text-white py-12">
-        <div className="max-w-4xl mx-auto px-4 text-center" data-aos="fade-up">
-          <h1 className="text-3xl md:text-4xl font-display font-bold mb-4">Contact Us</h1>
-          <p className="text-xl text-gray-200">
-            Get in touch with us. We'd love to hear from you and help you find 
+      <section 
+        className="relative h-96 text-white py-16 bg-cover bg-center bg-no-repeat"
+        
+      >
+        {/* Overlay for better text readability */}
+        <div className="absolute inset-0 bg-wood-dark"></div>
+        
+        <div className="relative max-w-7xl mx-auto px-4 h-full flex flex-col justify-center">
+          <h1 className="text-3xl md:text-4xl font-display font-bold text-center mb-4">
+            Contact Us
+          </h1>
+          <p className="text-xl text-gray-200 text-center max-w-3xl mx-auto">
+            Get in touch with us. We&apos;d love to hear from you and help you find 
             the perfect wooden timepiece.
           </p>
         </div>
@@ -245,10 +277,14 @@ const ContactPage = () => {
                   ) : (
                     <>
                       <Send className="h-5 w-5 mr-2" />
-                      Send Message
+                      Send via WhatsApp
                     </>
                   )}
                 </button>
+                
+                <p className="text-sm text-gray-500 text-center mt-3">
+                  Your message will be sent via WhatsApp to our customer service team.
+                </p>
               </form>
             </div>
           </div>

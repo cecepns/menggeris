@@ -5,10 +5,19 @@ const AboutPage = () => {
   return (
     <div className="pt-16">
       {/* Hero Section */}
-      <section className="bg-wood-dark text-white py-16">
-        <div className="max-w-4xl mx-auto px-4 text-center" data-aos="fade-up">
-          <h1 className="text-5xl font-display font-bold mb-6">Our Story</h1>
-          <p className="text-xl text-gray-200 leading-relaxed">
+  
+      <section 
+        className="relative h-96 text-white py-16 bg-cover bg-center bg-no-repeat"
+        
+      >
+        {/* Overlay for better text readability */}
+        <div className="absolute inset-0 bg-wood-dark"></div>
+        
+        <div className="relative max-w-7xl mx-auto px-4 h-full flex flex-col justify-center">
+          <h1 className="text-3xl md:text-4xl font-display font-bold text-center mb-4">
+            Our Story
+          </h1>
+          <p className="text-xl text-gray-200 text-center max-w-3xl mx-auto">
             Assalamualaikum Warahmatullahi Wabarakatuh. Discover the journey of Menggeris, 
             from the rich forests of East Borneo to the world stage.
           </p>
