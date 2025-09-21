@@ -1,4 +1,5 @@
 import { MapPin, Calendar, Users, Globe } from 'lucide-react';
+import Founder from '../assets/founder.jpeg';
 
 const AboutPage = () => {
   return (
@@ -23,7 +24,7 @@ const AboutPage = () => {
           <div className="flex flex-col md:flex-row items-center gap-8" data-aos="fade-up">
             <div className="flex-shrink-0">
               <img 
-                src="/src/assets/founder.jpeg" 
+                src={Founder}
                 alt="Dr. Iendy Zelviean Adhari, M.M., M.E." 
                 className="w-64 h-64 object-cover rounded-full shadow-lg border-4 border-wood-maroon"
               />
