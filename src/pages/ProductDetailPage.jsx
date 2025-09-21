@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { ArrowLeft, Star } from 'lucide-react';
+import { ArrowLeft, Star, ChevronLeft, ChevronRight } from 'lucide-react';
 import { productAPI, settingsAPI } from '../utils/api';
 
 const ProductDetailPage = () => {
@@ -9,6 +9,7 @@ const ProductDetailPage = () => {
   const [loading, setLoading] = useState(true);
   const [selectedImage, setSelectedImage] = useState(0);
   const [settings, setSettings] = useState({ phone: '' });
+  const thumbnailScrollRef = useRef(null);
 
   useEffect(() => {
     fetchProduct();
@@ -71,6 +72,21 @@ const ProductDetailPage = () => {
     window.open(whatsappUrl, '_blank');
   };
 
+  const scrollThumbnails = (direction) => {
+    if (thumbnailScrollRef.current) {
+      const scrollAmount = 100; // Adjust scroll amount as needed
+      const currentScroll = thumbnailScrollRef.current.scrollLeft;
+      const newScroll = direction === 'left' 
+        ? currentScroll - scrollAmount 
+        : currentScroll + scrollAmount;
+      
+      thumbnailScrollRef.current.scrollTo({
+        left: newScroll,
+        behavior: 'smooth'
+      });
+    }
+  };
+
   if (loading) {
     return (
       <div className="pt-16 min-h-screen bg-cream-50 flex items-center justify-center">
@@ -117,28 +133,57 @@ const ProductDetailPage = () => {
               <img 
                 src={images[selectedImage]?.startsWith('http') ? images[selectedImage] : `https://api-inventory.isavralabel.com/menggeris/uploads-menggaris/${images[selectedImage]}`}
                 alt={product.name}
-                className="w-full h-full object-cover"
+                className="w-full h-full object-contain"
               />
             </div>
             
             {/* Thumbnail Images */}
             {images.length > 1 && (
-              <div className="grid grid-cols-4 gap-2">
-                {images.map((image, index) => (
-                  <button
-                    key={index}
-                    onClick={() => setSelectedImage(index)}
-                    className={`aspect-square bg-white rounded-lg overflow-hidden ${
-                      selectedImage === index ? 'ring-2 ring-wood-maroon' : ''
-                    }`}
-                  >
-                    <img 
-                      src={image?.startsWith('http') ? image : `https://api-inventory.isavralabel.com/menggeris/uploads-menggaris/${image}`}
-                      alt={`${product.name} ${index + 1}`}
-                      className="w-full h-full object-cover"
-                    />
-                  </button>
-                ))}
+              <div className="relative">
+                {/* Floating Navigation Buttons */}
+                <button
+                  onClick={() => scrollThumbnails('left')}
+                  className="absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-white/90 hover:bg-white shadow-lg rounded-full p-2 transition-all duration-200 hover:scale-110"
+                  aria-label="Previous thumbnails"
+                >
+                  <ChevronLeft className="h-5 w-5 text-gray-700" />
+                </button>
+                
+                <button
+                  onClick={() => scrollThumbnails('right')}
+                  className="absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white/90 hover:bg-white shadow-lg rounded-full p-2 transition-all duration-200 hover:scale-110"
+                  aria-label="Next thumbnails"
+                >
+                  <ChevronRight className="h-5 w-5 text-gray-700" />
+                </button>
+
+                {/* Thumbnail Container with Hidden Scrollbar */}
+                <div 
+                  ref={thumbnailScrollRef}
+                  className="overflow-x-auto scrollbar-hide pt-2"
+                  style={{
+                    scrollbarWidth: 'none', /* Firefox */
+                    msOverflowStyle: 'none', /* Internet Explorer 10+ */
+                  }}
+                >
+                  <div className="flex gap-2 pb-2" style={{ minWidth: 'max-content' }}>
+                    {images.map((image, index) => (
+                      <button
+                        key={index}
+                        onClick={() => setSelectedImage(index)}
+                        className={`flex-shrink-0 w-20 h-20 bg-white rounded-lg overflow-hidden transition-all duration-200 hover:scale-105 ${
+                          selectedImage === index ? 'ring-2 ring-wood-maroon' : 'hover:ring-1 hover:ring-gray-300'
+                        }`}
+                      >
+                        <img 
+                          src={image?.startsWith('http') ? image : `https://api-inventory.isavralabel.com/menggeris/uploads-menggaris/${image}`}
+                          alt={`${product.name} ${index + 1}`}
+                          className="w-full h-full object-cover"
+                        />
+                      </button>
+                    ))}
+                  </div>
+                </div>
               </div>
             )}
           </div>
