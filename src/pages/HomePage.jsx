@@ -94,11 +94,11 @@ const HomePage = () => {
       {/* Features Section */}
       <section className="py-16 bg-cream-100">
         <div className="max-w-7xl mx-auto px-4">
-          <div className="text-center mb-12" data-aos="fade-up">
+          <div className="text-center mb-12" data-aos="fade-right">
             <h2 className="text-3xl md:text-4xl font-display font-bold text-gray-900 mb-4">
               Why Choose Menggeris?
             </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto" data-aos="fade-up">
               Discover what makes our wooden timepieces unique and exceptional
             </p>
           </div>
@@ -153,11 +153,11 @@ const HomePage = () => {
       {/* Featured Products */}
       <section className="py-16 bg-cream-50">
         <div className="max-w-7xl mx-auto px-4">
-          <div className="text-center mb-12" data-aos="fade-up">
-            <h2 className="text-3xl md:text-4xl font-display font-bold text-gray-900 mb-4">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-display font-bold text-gray-900 mb-4" data-aos="fade-right">
               Featured Collections
             </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto" data-aos="fade-up">
               Explore our handpicked selection of premium wooden timepieces
             </p>
           </div>
