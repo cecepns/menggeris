@@ -65,7 +65,7 @@ const HomePage = () => {
               <p className="text-xl text-slate-600 mb-8 leading-relaxed">
                 Experience the world&apos;s first wooden automatic skeleton
                 watch, handcrafted from the rare Kompassia excelsa wood of East
-                Kalimantan.
+                Borneo.
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
                 <Link
