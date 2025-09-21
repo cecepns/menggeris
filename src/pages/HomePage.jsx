@@ -1,16 +1,19 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { ArrowRight, Star, Award, Leaf, Clock } from "lucide-react";
-import { productAPI } from "../utils/api";
-import Banner from '../assets/1.png';
-import Pattern from '../assets/pattern.png';
+import { ArrowRight, Star, Award, Leaf, Clock, MapPin } from "lucide-react";
+import { productAPI, settingsAPI } from "../utils/api";
+import Banner from "../assets/1.png";
+import Pattern from "../assets/pattern.png";
 
 const HomePage = () => {
   const [featuredProducts, setFeaturedProducts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [settings, setSettings] = useState({});
+  const [settingsLoading, setSettingsLoading] = useState(true);
 
   useEffect(() => {
     fetchFeaturedProducts();
+    fetchSettings();
   }, []);
 
   const fetchFeaturedProducts = async () => {
@@ -24,29 +27,44 @@ const HomePage = () => {
     }
   };
 
+  const fetchSettings = async () => {
+    try {
+      const response = await settingsAPI.get();
+      setSettings(response.data);
+    } catch (error) {
+      console.error("Error fetching settings:", error);
+    } finally {
+      setSettingsLoading(false);
+    }
+  };
+
   return (
     <div className="pt-16">
       {/* Hero Section */}
-      <section 
+      <section
         className="text-white py-20 relative"
         style={{
           backgroundImage: `url(${Pattern})`,
-          backgroundRepeat: 'repeat',
-          backgroundSize: 'auto',
-          backgroundPosition: 'center'
+          backgroundRepeat: "repeat",
+          backgroundSize: "auto",
+          backgroundPosition: "center",
         }}
       >
         <div className="absolute inset-0 bg-white/90"></div>
         <div className="max-w-7xl mx-auto px-4 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div data-aos="fade-right">
-              <h1 className="text-slate-800 text-4xl md:text-5xl lg:text-6xl font-display font-bold mb-6 leading-tight">
-                Timepieces Crafted from
-                <span className="text-wood-dark"> Nature&apos;s Finest</span>
+              <h1 className="text-slate-800 text-3xl md:text-4xl font-display font-bold mb-6 leading-tight">
+                An Authentic and Exclusive Souvenir from East Borneo, Heart of
+                Nusantara -
+                <span className="text-wood-dark">
+                  {" "}
+                  Timelessly Crafted in Indonesia.
+                </span>
               </h1>
               <p className="text-xl text-slate-600 mb-8 leading-relaxed">
-                Experience the world&apos;s first wooden automatic skeleton watch,
-                handcrafted from the rare Kompassia excelsa wood of East
+                Experience the world&apos;s first wooden automatic skeleton
+                watch, handcrafted from the rare Kompassia excelsa wood of East
                 Kalimantan.
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
@@ -97,7 +115,7 @@ const HomePage = () => {
                 icon: <Leaf className="h-12 w-12 text-wood-maroon" />,
                 title: "Sustainable",
                 description:
-                  "SVLK-certified sustainable production practices protecting East Kalimantan's biodiversity",
+                  "SVLK-certified sustainable production practices protecting East Borneo's biodiversity",
               },
               {
                 icon: <Star className="h-12 w-12 text-wood-maroon" />,
@@ -209,7 +227,7 @@ const HomePage = () => {
       <section className="bg-wood-dark text-white py-16">
         <div className="max-w-4xl mx-auto px-4 text-center" data-aos="fade-up">
           <h2 className="text-3xl md:text-4xl font-display font-bold mb-6">
-            Ready to Own a Piece of East Kalimantan?
+            Ready to Own a Piece of East Borneo?
           </h2>
           <p className="text-xl text-gray-200 mb-8">
             Join collectors worldwide who appreciate the finest in wooden
@@ -223,6 +241,44 @@ const HomePage = () => {
             Get In Touch
             <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
           </Link>
+        </div>
+      </section>
+
+      {/* Maps Section */}
+      <section className="py-16 bg-cream-50">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="text-center mb-12" data-aos="fade-up">
+            <div className="flex items-center justify-center mb-4">
+              <MapPin className="h-8 w-8 text-wood-maroon mr-3" />
+              <h2 className="text-3xl md:text-4xl font-display font-bold text-gray-900">
+                Find Us
+              </h2>
+            </div>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              Visit our location and experience the craftsmanship firsthand
+            </p>
+          </div>
+
+          {settingsLoading ? (
+            <div className="flex justify-center items-center py-12">
+              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-wood-maroon"></div>
+            </div>
+          ) : settings.maps ? (
+            <div className="rounded-lg overflow-hidden" data-aos="fade-up">
+              <div 
+                className="max-w-4xl m-auto w-full h-96 md:h-[500px]"
+                dangerouslySetInnerHTML={{ __html: settings.maps }}
+              />
+            </div>
+          ) : (
+            <div className="text-center py-12">
+              <MapPin className="h-16 w-16 text-gray-400 mx-auto mb-4" />
+              <p className="text-gray-500 text-lg">
+                Map location will be available soon
+              </p>
+            </div>
+          )}
+
         </div>
       </section>
     </div>

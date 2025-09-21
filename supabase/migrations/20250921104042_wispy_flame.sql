@@ -68,7 +68,7 @@ INSERT IGNORE INTO settings (
     'Bumi Sempaja City, Block CD No.22, Samarinda – East Borneo, Indonesia',
     '+62 811-1111-1412',
     'menggerisofficial@gmail.com',
-    'Rooted in the rich biodiversity heritage of East Kalimantan, Menggeris stands as a manifestation of harmony between nature, tradition, and modern design. Our collections are crafted from the rare buttress wood of Kompassia excelsa, a material admired for its natural strength, captivating grain patterns, and graceful maroon tones.'
+    'Rooted in the rich biodiversity heritage of East Borneo, Menggeris stands as a manifestation of harmony between nature, tradition, and modern design. Our collections are crafted from the rare buttress wood of Kompassia excelsa, a material admired for its natural strength, captivating grain patterns, and graceful maroon tones.'
 );
 
 -- Insert sample products
@@ -82,7 +82,7 @@ INSERT IGNORE INTO products (name, description, price, category_id, images) VALU
 ),
 (
     'Heritage Wooden Watch',
-    '<p>A tribute to traditional craftsmanship with modern precision. Each piece tells a story of East Kalimantan\'s rich biodiversity.</p><p><strong>Specifications:</strong></p><ul><li>100% handcrafted wooden case</li><li>Swiss movement</li><li>Genuine leather strap</li><li>Limited edition piece</li><li>Certificate of authenticity</li></ul>',
+    '<p>A tribute to traditional craftsmanship with modern precision. Each piece tells a story of East Borneo\'s rich biodiversity.</p><p><strong>Specifications:</strong></p><ul><li>100% handcrafted wooden case</li><li>Swiss movement</li><li>Genuine leather strap</li><li>Limited edition piece</li><li>Certificate of authenticity</li></ul>',
     890.00,
     1,
     '[]'
@@ -103,7 +103,7 @@ INSERT IGNORE INTO products (name, description, price, category_id, images) VALU
 ),
 (
     'Premium Card Holder',
-    '<p>Elegant wooden card holder showcasing the beautiful grain patterns of East Kalimantan\'s finest wood. A perfect executive accessory.</p><p><strong>Details:</strong></p><ul><li>Holds up to 8 cards</li><li>RFID blocking technology</li><li>Smooth finish</li><li>Compact design</li><li>Gift box included</li></ul>',
+    '<p>Elegant wooden card holder showcasing the beautiful grain patterns of East Borneo\'s finest wood. A perfect executive accessory.</p><p><strong>Details:</strong></p><ul><li>Holds up to 8 cards</li><li>RFID blocking technology</li><li>Smooth finish</li><li>Compact design</li><li>Gift box included</li></ul>',
     125.00,
     5,
     '[]'

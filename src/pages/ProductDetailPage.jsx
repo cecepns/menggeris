@@ -157,7 +157,7 @@ const ProductDetailPage = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
           {/* Product Images */}
           <div>
-            <div className="aspect-square bg-white rounded-lg overflow-hidden shadow-md mb-4">
+            <div className="aspect-square rounded-lg overflow-hidden mb-4">
               <img 
                 src={images[selectedImage]?.startsWith('http') ? images[selectedImage] : `https://api-inventory.isavralabel.com/menggeris/uploads-menggaris/${images[selectedImage]}`}
                 alt={product.name}
@@ -306,7 +306,7 @@ const ProductDetailPage = () => {
                   </div>
                   <div>
                     <span className="font-semibold">Origin:</span>
-                    <span className="ml-2">East Kalimantan, Indonesia</span>
+                    <span className="ml-2">East Borneo, Indonesia</span>
                   </div>
                   <div>
                     <span className="font-semibold">Certification:</span>

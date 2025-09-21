@@ -78,7 +78,7 @@ const ProductsPage = () => {
           </h1>
           <p className="text-xl text-gray-200 text-center max-w-3xl mx-auto">
             Discover our handcrafted wooden timepieces, each telling a unique
-            story of tradition and precision from East Kalimantan.
+            story of tradition and precision from East Borneo.
           </p>
         </div>
       </section>

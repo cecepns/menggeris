@@ -10,7 +10,7 @@ const AboutPage = () => {
           <h1 className="text-5xl font-display font-bold mb-6">Our Story</h1>
           <p className="text-xl text-gray-200 leading-relaxed">
             Assalamualaikum Warahmatullahi Wabarakatuh. Discover the journey of Menggeris, 
-            from the rich forests of East Kalimantan to the world stage.
+            from the rich forests of East Borneo to the world stage.
           </p>
         </div>
       </section>
@@ -21,12 +21,12 @@ const AboutPage = () => {
           <h2 className="text-3xl md:text-4xl font-display font-bold text-center mb-12 text-gray-900" data-aos="fade-up">
             Our Founder
           </h2>
-          <div className="flex flex-col md:flex-row items-center gap-8" data-aos="fade-up">
-            <div className="flex-shrink-0">
+          <div className="grid md:grid-cols-2 gap-8" data-aos="fade-up">
+            <div className="w-full h-96 overflow-hidden rounded-tl-3xl rounded-br-3xl">
               <img 
                 src={Founder}
                 alt="Dr. Iendy Zelviean Adhari, M.M., M.E." 
-                className="w-64 h-64 object-cover rounded-full shadow-lg border-4 border-wood-maroon"
+                className="w-full h-full object-cover shadow-lg border-2 border-wood-maroon"
               />
             </div>
             <div className="flex-1 text-center md:text-left">
@@ -38,7 +38,7 @@ const AboutPage = () => {
                 academic excellence and entrepreneurial spirit to create Indonesia&apos;s first 
                 automatic skeleton wooden watch. With his expertise in engineering and management, 
                 he has transformed the rare buttress wood of Kompassia excelsa into world-class 
-                timepieces that represent the natural beauty and cultural heritage of East Kalimantan.
+                timepieces that represent the natural beauty and cultural heritage of East Borneo.
               </p>
               <p className="text-lg text-gray-700 leading-relaxed mt-4">
                 Under his leadership, Menggeris has successfully exported exclusive wooden watches 
@@ -55,7 +55,7 @@ const AboutPage = () => {
         <div className="max-w-4xl mx-auto px-4">
           <div className="prose prose-lg max-w-none" data-aos="fade-up">
             <p className="text-xl text-gray-700 leading-relaxed mb-8">
-              Rooted in the rich biodiversity heritage of East Kalimantan, Menggeris stands as a 
+              Rooted in the rich biodiversity heritage of East Borneo, Menggeris stands as a 
               manifestation of harmony between nature, tradition, and modern design. Our collections 
               are crafted from the rare buttress wood of Kompassia excelsa, a material admired for 
               its natural strength, captivating grain patterns, and graceful maroon tones.
@@ -64,7 +64,7 @@ const AboutPage = () => {
               Each handmade creation is more than just an accessory; it is a symbol of refined 
               simplicity and timeless natural beauty. With great pride, Menggeris presents the 
               world&apos;s first wooden timepiece that unites Level-1 hardwood with the Seiko Automatic 
-              Skeleton Movement—a masterpiece born in the land of East Kalimantan.
+              Skeleton Movement—a masterpiece born in the land of East Borneo.
             </p>
           </div>
         </div>
@@ -96,7 +96,7 @@ const AboutPage = () => {
               {
                 icon: <MapPin className="h-12 w-12 text-wood-maroon" />,
                 title: "Location",
-                description: "East Kalimantan, Indonesia"
+                description: "East Borneo, Indonesia"
               }
             ].map((item, index) => (
               <div 
@@ -141,7 +141,7 @@ const AboutPage = () => {
               As a driver of Indonesia&apos;s craft product downstreaming, Menggeris upholds export 
               standards while delivering high-value and globally competitive creations. To date, 
               around 20 exclusive Menggeris timepieces have reached buyers in America, Asia, and 
-              Europe, making the brand a symbol of authentic souvenirs from East Kalimantan and 
+              Europe, making the brand a symbol of authentic souvenirs from East Borneo and 
               the new capital city, IKN Nusantara.
             </p>
           </div>
@@ -156,7 +156,7 @@ const AboutPage = () => {
               <h2 className="text-3xl font-display font-bold mb-6 text-gray-900">Our Vision</h2>
               <p className="text-lg text-gray-700 leading-relaxed">
                 To become a symbol of Indonesian pride in the high-quality souvenir industry, 
-                introducing the natural and cultural wealth of East Kalimantan to the global 
+                introducing the natural and cultural wealth of East Borneo to the global 
                 stage through exclusive and sustainable wooden watches and eyewear.
               </p>
             </div>
