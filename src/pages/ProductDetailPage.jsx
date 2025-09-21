@@ -9,12 +9,31 @@ const ProductDetailPage = () => {
   const [loading, setLoading] = useState(true);
   const [selectedImage, setSelectedImage] = useState(0);
   const [settings, setSettings] = useState({ phone: '' });
+  const [showNavButtons, setShowNavButtons] = useState(false);
   const thumbnailScrollRef = useRef(null);
 
   useEffect(() => {
     fetchProduct();
     fetchSettings();
   }, [id]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  useEffect(() => {
+    // Check if scroll is needed when product images are loaded
+    if (product && product.images) {
+      // Use setTimeout to ensure DOM is updated
+      setTimeout(checkScrollNeeded, 100);
+    }
+  }, [product]);
+
+  useEffect(() => {
+    // Check scroll on window resize
+    const handleResize = () => {
+      checkScrollNeeded();
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   const fetchProduct = async () => {
     try {
@@ -70,6 +89,15 @@ const ProductDetailPage = () => {
     
     // Open WhatsApp
     window.open(whatsappUrl, '_blank');
+  };
+
+  const checkScrollNeeded = () => {
+    if (thumbnailScrollRef.current) {
+      const container = thumbnailScrollRef.current;
+      const scrollWidth = container.scrollWidth;
+      const clientWidth = container.clientWidth;
+      setShowNavButtons(scrollWidth > clientWidth);
+    }
   };
 
   const scrollThumbnails = (direction) => {
@@ -140,27 +168,31 @@ const ProductDetailPage = () => {
             {/* Thumbnail Images */}
             {images.length > 1 && (
               <div className="relative">
-                {/* Floating Navigation Buttons */}
-                <button
-                  onClick={() => scrollThumbnails('left')}
-                  className="absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-white/90 hover:bg-white shadow-lg rounded-full p-2 transition-all duration-200 hover:scale-110"
-                  aria-label="Previous thumbnails"
-                >
-                  <ChevronLeft className="h-5 w-5 text-gray-700" />
-                </button>
-                
-                <button
-                  onClick={() => scrollThumbnails('right')}
-                  className="absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white/90 hover:bg-white shadow-lg rounded-full p-2 transition-all duration-200 hover:scale-110"
-                  aria-label="Next thumbnails"
-                >
-                  <ChevronRight className="h-5 w-5 text-gray-700" />
-                </button>
+                {/* Floating Navigation Buttons - Only show when scroll is needed */}
+                {showNavButtons && (
+                  <>
+                    <button
+                      onClick={() => scrollThumbnails('left')}
+                      className="absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-white/90 hover:bg-white shadow-lg rounded-full p-2 transition-all duration-200 hover:scale-110"
+                      aria-label="Previous thumbnails"
+                    >
+                      <ChevronLeft className="h-5 w-5 text-gray-700" />
+                    </button>
+                    
+                    <button
+                      onClick={() => scrollThumbnails('right')}
+                      className="absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white/90 hover:bg-white shadow-lg rounded-full p-2 transition-all duration-200 hover:scale-110"
+                      aria-label="Next thumbnails"
+                    >
+                      <ChevronRight className="h-5 w-5 text-gray-700" />
+                    </button>
+                  </>
+                )}
 
                 {/* Thumbnail Container with Hidden Scrollbar */}
                 <div 
                   ref={thumbnailScrollRef}
-                  className="overflow-x-auto scrollbar-hide pt-2"
+                  className="overflow-x-auto scrollbar-hide pt-2 px-2"
                   style={{
                     scrollbarWidth: 'none', /* Firefox */
                     msOverflowStyle: 'none', /* Internet Explorer 10+ */
