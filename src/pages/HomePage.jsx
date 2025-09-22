@@ -13,6 +13,18 @@ import { productAPI, settingsAPI } from "../utils/api";
 import Banner from "../assets/1.png";
 import Pattern from "../assets/pattern.png";
 import WonderfullLogo from "../assets/wonderfull.png";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Pagination, Autoplay } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+
+import Banner1 from '../assets/banner_1.png';
+import Banner2 from '../assets/banner_2.png';
+import Banner3 from '../assets/banner_3.png';
+import Banner4 from '../assets/banner_4.png';
+import Banner5 from '../assets/banner_5.png';
+
 // import Video1 from "../assets/video/Short 1.mp4";
 // import Video2 from "../assets/video/Short 4.mp4";
 // import Video3 from "../assets/video/Short 5.mp4";
@@ -63,6 +75,49 @@ const HomePage = () => {
 
   return (
     <div className="pt-16">
+      {/* Banner Slider Section */}
+      <section className="bg-cream-50 mt-16">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="relative rounded-2xl overflow-hidden">
+            <Swiper
+              modules={[Navigation, Pagination, Autoplay]}
+              slidesPerView={1}
+              loop
+              autoplay={{ delay: 3500, disableOnInteraction: false }}
+              pagination={{ clickable: true }}
+              navigation
+              className="h-full md:h-[500px]"
+           >
+              <SwiperSlide>
+                <div className="w-full h-full">
+                  <img src={Banner1} alt="Menggeris Banner" className="w-full h-full object-cover" />
+                </div>
+              </SwiperSlide>
+              <SwiperSlide>
+                <div className="w-full h-full">
+                  <img src={Banner2} alt="Menggeris Banner" className="w-full h-full object-cover" />
+                </div>
+              </SwiperSlide>
+              <SwiperSlide>
+                <div className="w-full h-full">
+                  <img src={Banner3} alt="Menggeris Banner" className="w-full h-full object-cover" />
+                </div>
+              </SwiperSlide>
+              <SwiperSlide>
+                <div className="w-full h-full">
+                  <img src={Banner4} alt="Menggeris Banner" className="w-full h-full object-cover" />
+                </div>
+              </SwiperSlide>
+              <SwiperSlide>
+                <div className="w-full h-full">
+                  <img src={Banner5} alt="Menggeris Banner" className="w-full h-full object-cover" />
+                </div>
+              </SwiperSlide>
+            </Swiper>
+          </div>
+        </div>
+      </section>
+
       {/* Hero Section */}
       <section
         className="text-white py-10 md:py-20 relative"
@@ -76,7 +131,7 @@ const HomePage = () => {
         <div className="absolute inset-0 bg-white/90"></div>
         <div className="max-w-7xl mx-auto px-4 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div data-aos="fade-right" className="order-2 lg:order-1">
+            <div data-aos="fade-right">
               <h1 className="text-slate-800 text-3xl md:text-4xl font-display font-bold mb-6 leading-tight">
                 An Authentic and Exclusive Souvenir from East Borneo, Heart of
                 Nusantara -
@@ -100,7 +155,7 @@ const HomePage = () => {
                 </Link>
               </div>
             </div>
-            <div data-aos="fade-left" className="relative order-1 lg:order-2">
+            <div data-aos="fade-left" className="relative">
               <div className="relative z-10 h-96 md:h-[500px] w-full overlfow-hidden">
                 <img
                   src={Banner}

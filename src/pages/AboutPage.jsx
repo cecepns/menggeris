@@ -1,5 +1,6 @@
 import { MapPin, Calendar, Users, Globe } from 'lucide-react';
 import Founder from '../assets/founder.jpeg';
+import Sertifikat from '../assets/sertifikat.jpg';
 
 const AboutPage = () => {
   return (
@@ -75,6 +76,37 @@ const AboutPage = () => {
               world&apos;s first wooden timepiece that unites Level-1 hardwood with the Seiko Automatic 
               Skeleton Movement—a masterpiece born in the land of East Borneo.
             </p>
+          </div>
+        </div>
+      </section>
+
+      {/* SVLK Certificate Section */}
+      <section className="py-16 bg-cream-50">
+        <div className="max-w-6xl mx-auto px-4">
+          <h2 className="text-3xl md:text-4xl font-display font-bold text-center mb-12 text-gray-900" data-aos="fade-up">
+            Forest Product Legality Certificate (SVLK)
+          </h2>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div className="w-full" data-aos="fade-right">
+              <img 
+                src={Sertifikat} 
+                alt="Forest Product Legality Certificate (SVLK) - Menggeris" 
+                className="w-full h-auto rounded-lg shadow-lg border-2 border-wood-maroon"
+              />
+            </div>
+            <div data-aos="fade-left">
+              <p className="text-lg text-gray-700 leading-relaxed">
+                Menggeris is committed to legal and sustainable forestry practices. Our products are
+                supported by the SVLK (Forest Product Legality Certificate), ensuring timber materials
+                come from lawful, traceable sources and comply with national standards to promote
+                responsible trade.
+              </p>
+              <ul className="mt-6 space-y-3 text-lg text-gray-700">
+                <li>• Legally sourced and sustainable timber</li>
+                <li>• Supply chain traceability and regulatory compliance</li>
+                <li>• Supports export readiness and responsible forest management</li>
+              </ul>
+            </div>
           </div>
         </div>
       </section>

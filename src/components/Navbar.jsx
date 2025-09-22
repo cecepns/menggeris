@@ -49,7 +49,7 @@ const Navbar = () => {
                   {item.name}
                 </Link>
               ))}
-              {/* <GoogleTranslate /> */}
+              <GoogleTranslate />
             </div>
           </div>
 
@@ -82,9 +82,9 @@ const Navbar = () => {
                   {item.name}
                 </Link>
               ))}
-              {/* <div className="px-3 py-2">
+              <div className="px-3 py-2">
                 <GoogleTranslate />
-              </div> */}
+              </div>
             </div>
           </div>
         )}
