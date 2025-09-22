@@ -385,7 +385,7 @@ const HomePage = () => {
             <h2 className="text-3xl md:text-4xl font-display font-bold text-gray-900 mb-8">
               Proud to be part of
             </h2>
-            <div className="flex justify-center items-center w-96 mx-auto border rounded px-8 bg-white">
+            <div className="flex justify-center items-center md:w-96 mx-auto border rounded px-8 bg-white">
               <img
                 src={WonderfullLogo}
                 alt="Wonderful Indonesia"

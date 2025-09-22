@@ -171,7 +171,7 @@ const ProductDetailPage = () => {
     <div className="pt-16 min-h-screen bg-cream-50">
       {/* Breadcrumb */}
       <div className="bg-white border-b">
-        <div className="max-w-7xl mx-auto px-4 py-4">
+        <div className="max-w-7xl mx-auto px-4 py-4 mt-6">
           <Link
             to="/products"
             className="inline-flex items-center text-wood-dark hover:text-wood-dark transition-colors"
