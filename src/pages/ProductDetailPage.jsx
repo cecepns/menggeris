@@ -1,15 +1,26 @@
-import { useState, useEffect, useRef } from 'react';
-import { useParams, Link } from 'react-router-dom';
-import { ArrowLeft, Star, ChevronLeft, ChevronRight } from 'lucide-react';
-import { productAPI, settingsAPI } from '../utils/api';
+import { useState, useEffect, useRef } from "react";
+import { useParams, Link } from "react-router-dom";
+import {
+  ArrowLeft,
+  Star,
+  ChevronLeft,
+  ChevronRight,
+  CreditCard,
+  X,
+  Eye,
+} from "lucide-react";
+import { productAPI, settingsAPI } from "../utils/api";
+import paypalLogo from "../assets/payments/paypal.png";
+import qrisLogo from "../assets/payments/qris.jpg";
 
 const ProductDetailPage = () => {
   const { id } = useParams();
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
   const [selectedImage, setSelectedImage] = useState(0);
-  const [settings, setSettings] = useState({ phone: '' });
+  const [settings, setSettings] = useState({ phone: "" });
   const [showNavButtons, setShowNavButtons] = useState(false);
+  const [showQRISModal, setShowQRISModal] = useState(false);
   const thumbnailScrollRef = useRef(null);
 
   useEffect(() => {
@@ -31,8 +42,8 @@ const ProductDetailPage = () => {
       checkScrollNeeded();
     };
 
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   const fetchProduct = async () => {
@@ -41,7 +52,7 @@ const ProductDetailPage = () => {
       const response = await productAPI.getById(id);
       setProduct(response.data);
     } catch (error) {
-      console.error('Error fetching product:', error);
+      console.error("Error fetching product:", error);
     } finally {
       setLoading(false);
     }
@@ -54,41 +65,46 @@ const ProductDetailPage = () => {
         setSettings(response.data);
       }
     } catch (error) {
-      console.error('Error fetching settings:', error);
+      console.error("Error fetching settings:", error);
     }
   };
 
   const handleWhatsAppRedirect = () => {
     if (!settings.phone) {
-      alert('Phone number not configured. Please contact administrator.');
+      alert("Phone number not configured. Please contact administrator.");
       return;
     }
 
     // Format phone number (remove spaces, dashes, and ensure it starts with country code)
-    let phoneNumber = settings.phone.replace(/[\s\-()]/g, '');
-    
+    let phoneNumber = settings.phone.replace(/[\s\-()]/g, "");
+
     // If phone number doesn't start with country code, assume it's Indonesian (+62)
-    if (!phoneNumber.startsWith('+')) {
-      if (phoneNumber.startsWith('0')) {
-        phoneNumber = '+62' + phoneNumber.substring(1);
-      } else if (!phoneNumber.startsWith('62')) {
-        phoneNumber = '+62' + phoneNumber;
+    if (!phoneNumber.startsWith("+")) {
+      if (phoneNumber.startsWith("0")) {
+        phoneNumber = "+62" + phoneNumber.substring(1);
+      } else if (!phoneNumber.startsWith("62")) {
+        phoneNumber = "+62" + phoneNumber;
       } else {
-        phoneNumber = '+' + phoneNumber;
+        phoneNumber = "+" + phoneNumber;
       }
     }
 
     // Create WhatsApp message
-    const message = `Hi! I'm interested in purchasing "${product.name}" ($${product.price?.toLocaleString()}). Could you please provide more information about this product?`;
-    
+    const message = `Hi! I'm interested in purchasing "${
+      product.name
+    }" ($${product.price?.toLocaleString()}). Could you please provide more information about this product?`;
+
     // Encode message for URL
     const encodedMessage = encodeURIComponent(message);
-    
+
     // Create WhatsApp URL
-    const whatsappUrl = `https://wa.me/${phoneNumber.replace('+', '')}?text=${encodedMessage}`;
-    
+    const whatsappUrl = `https://wa.me/${phoneNumber.replace(
+      "+",
+      ""
+    )}?text=${encodedMessage}`;
+
     // Open WhatsApp
-    window.open(whatsappUrl, '_blank');
+    window.open(whatsappUrl, "_blank");
   };
 
   const checkScrollNeeded = () => {
@@ -104,15 +120,24 @@ const ProductDetailPage = () => {
     if (thumbnailScrollRef.current) {
       const scrollAmount = 100; // Adjust scroll amount as needed
       const currentScroll = thumbnailScrollRef.current.scrollLeft;
-      const newScroll = direction === 'left' 
-        ? currentScroll - scrollAmount 
-        : currentScroll + scrollAmount;
-      
+      const newScroll =
+        direction === "left"
+          ? currentScroll - scrollAmount
+          : currentScroll + scrollAmount;
+
       thumbnailScrollRef.current.scrollTo({
         left: newScroll,
-        behavior: 'smooth'
+        behavior: "smooth",
       });
     }
+  };
+
+  const handleQRISModal = () => {
+    setShowQRISModal(true);
+  };
+
+  const closeQRISModal = () => {
+    setShowQRISModal(false);
   };
 
   if (loading) {
@@ -127,7 +152,9 @@ const ProductDetailPage = () => {
     return (
       <div className="pt-16 min-h-screen bg-cream-50 flex items-center justify-center">
         <div className="text-center">
-          <h2 className="text-2xl font-bold text-gray-900 mb-4">Product not found</h2>
+          <h2 className="text-2xl font-bold text-gray-900 mb-4">
+            Product not found
+          </h2>
           <Link to="/products" className="text-wood-dark hover:underline">
             ← Back to Products
           </Link>
@@ -136,15 +163,17 @@ const ProductDetailPage = () => {
     );
   }
 
-  const images = product.images || ['https://images.pexels.com/photos/1697214/pexels-photo-1697214.jpeg?auto=compress&cs=tinysrgb&w=800'];
+  const images = product.images || [
+    "https://images.pexels.com/photos/1697214/pexels-photo-1697214.jpeg?auto=compress&cs=tinysrgb&w=800",
+  ];
 
   return (
     <div className="pt-16 min-h-screen bg-cream-50">
       {/* Breadcrumb */}
       <div className="bg-white border-b">
         <div className="max-w-7xl mx-auto px-4 py-4">
-          <Link 
-            to="/products" 
+          <Link
+            to="/products"
             className="inline-flex items-center text-wood-dark hover:text-wood-dark transition-colors"
           >
             <ArrowLeft className="h-5 w-5 mr-2" />
@@ -158,13 +187,17 @@ const ProductDetailPage = () => {
           {/* Product Images */}
           <div>
             <div className="aspect-square rounded-lg overflow-hidden mb-4">
-              <img 
-                src={images[selectedImage]?.startsWith('http') ? images[selectedImage] : `https://api-inventory.isavralabel.com/menggeris/uploads-menggaris/${images[selectedImage]}`}
+              <img
+                src={
+                  images[selectedImage]?.startsWith("http")
+                    ? images[selectedImage]
+                    : `https://api-inventory.isavralabel.com/menggeris/uploads-menggaris/${images[selectedImage]}`
+                }
                 alt={product.name}
                 className="w-full h-full object-contain"
               />
             </div>
-            
+
             {/* Thumbnail Images */}
             {images.length > 1 && (
               <div className="relative">
@@ -172,15 +205,15 @@ const ProductDetailPage = () => {
                 {showNavButtons && (
                   <>
                     <button
-                      onClick={() => scrollThumbnails('left')}
+                      onClick={() => scrollThumbnails("left")}
                       className="absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-white/90 hover:bg-white shadow-lg rounded-full p-2 transition-all duration-200 hover:scale-110"
                       aria-label="Previous thumbnails"
                     >
                       <ChevronLeft className="h-5 w-5 text-gray-700" />
                     </button>
-                    
+
                     <button
-                      onClick={() => scrollThumbnails('right')}
+                      onClick={() => scrollThumbnails("right")}
                       className="absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white/90 hover:bg-white shadow-lg rounded-full p-2 transition-all duration-200 hover:scale-110"
                       aria-label="Next thumbnails"
                     >
@@ -190,25 +223,34 @@ const ProductDetailPage = () => {
                 )}
 
                 {/* Thumbnail Container with Hidden Scrollbar */}
-                <div 
+                <div
                   ref={thumbnailScrollRef}
                   className="overflow-x-auto scrollbar-hide pt-2 px-2"
                   style={{
-                    scrollbarWidth: 'none', /* Firefox */
-                    msOverflowStyle: 'none', /* Internet Explorer 10+ */
+                    scrollbarWidth: "none" /* Firefox */,
+                    msOverflowStyle: "none" /* Internet Explorer 10+ */,
                   }}
                 >
-                  <div className="flex gap-2 pb-2" style={{ minWidth: 'max-content' }}>
+                  <div
+                    className="flex gap-2 pb-2"
+                    style={{ minWidth: "max-content" }}
+                  >
                     {images.map((image, index) => (
                       <button
                         key={index}
                         onClick={() => setSelectedImage(index)}
                         className={`flex-shrink-0 w-20 h-20 bg-white rounded-lg overflow-hidden transition-all duration-200 hover:scale-105 ${
-                          selectedImage === index ? 'ring-2 ring-wood-maroon' : 'hover:ring-1 hover:ring-gray-300'
+                          selectedImage === index
+                            ? "ring-2 ring-wood-maroon"
+                            : "hover:ring-1 hover:ring-gray-300"
                         }`}
                       >
-                        <img 
-                          src={image?.startsWith('http') ? image : `https://api-inventory.isavralabel.com/menggeris/uploads-menggaris/${image}`}
+                        <img
+                          src={
+                            image?.startsWith("http")
+                              ? image
+                              : `https://api-inventory.isavralabel.com/menggeris/uploads-menggaris/${image}`
+                          }
                           alt={`${product.name} ${index + 1}`}
                           className="w-full h-full object-cover"
                         />
@@ -225,14 +267,19 @@ const ProductDetailPage = () => {
             <h1 className="text-3xl md:text-4xl font-display font-bold text-gray-900 mb-4">
               {product.name}
             </h1>
-            
+
             <div className="flex items-center mb-6 flex-wrap">
               <div className="flex items-center mr-4">
                 {[...Array(5)].map((_, i) => (
-                  <Star key={i} className="h-5 w-5 text-yellow-400 fill-current" />
+                  <Star
+                    key={i}
+                    className="h-5 w-5 text-yellow-400 fill-current"
+                  />
                 ))}
               </div>
-              <span className="text-gray-600">(Based on craftsmanship quality)</span>
+              <span className="text-gray-600">
+                (Based on craftsmanship quality)
+              </span>
             </div>
 
             <div className="mb-8">
@@ -243,9 +290,9 @@ const ProductDetailPage = () => {
             </div>
 
             <div className="prose prose-lg max-w-none mb-8">
-              <div 
-                dangerouslySetInnerHTML={{ 
-                  __html: product.description || 'No description available.' 
+              <div
+                dangerouslySetInnerHTML={{
+                  __html: product.description || "No description available.",
                 }}
               />
             </div>
@@ -277,18 +324,84 @@ const ProductDetailPage = () => {
 
             {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row gap-4">
-              <button 
+              <button
                 onClick={handleWhatsAppRedirect}
                 className="flex-1 bg-wood-dark text-white py-4 px-8 rounded-lg font-semibold text-lg hover:bg-wood-dark transition-colors"
               >
                 Contact to Purchase
               </button>
-              <Link 
+              <Link
                 to="/contact"
                 className="flex-1 border-2 border-wood-dark text-wood-dark py-4 px-8 rounded-lg font-semibold text-lg hover:bg-wood-dark hover:text-white transition-colors text-center"
               >
                 Ask Questions
               </Link>
+            </div>
+
+            {/* Payment Methods */}
+            <div className="mt-8 bg-white rounded-lg p-6 shadow-sm border border-gray-100">
+              <div className="flex items-center mb-4">
+                <CreditCard className="h-6 w-6 text-wood-dark mr-3" />
+                <h3 className="text-xl font-semibold text-gray-900">
+                  Payment Methods
+                </h3>
+              </div>
+              <p className="text-gray-600 mb-6">
+                We accept the following payment methods for your convenience:
+              </p>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                {/* PayPal */}
+                <div className="flex items-center p-4 bg-gray-50 rounded-lg border border-gray-200">
+                  <div className="flex-shrink-0 mr-4">
+                    <img
+                      src={paypalLogo}
+                      alt="PayPal"
+                      className="h-12 w-auto object-contain"
+                    />
+                  </div>
+                  <div>
+                    <h4 className="font-semibold text-gray-900 mb-1">PayPal</h4>
+                    <p className="text-sm text-gray-600">
+                      Secure online payments
+                    </p>
+                  </div>
+                </div>
+
+                {/* QRIS */}
+                <div className="p-4 space-y-4 bg-gray-50 rounded-lg border border-gray-200">
+                  <div className="flex items-center">
+                    <div className="mr-4">
+                      <img
+                        src={qrisLogo}
+                        alt="QRIS"
+                        className="h-12 w-auto object-contain"
+                      />
+                    </div>
+                    <div className="flex-1">
+                      <h4 className="font-semibold text-gray-900 mb-1">QRIS</h4>
+                      <p className="text-sm text-gray-600">
+                        Quick Indonesian payment
+                      </p>
+                    </div>
+                  </div>
+                  <button
+                    onClick={handleQRISModal}
+                    className="bg-wood-dark text-white px-3 py-2 rounded-lg text-sm font-medium hover:bg-wood-maroon transition-colors flex items-center gap-2"
+                  >
+                    <Eye className="h-4 w-4" />
+                    Show QRIS
+                  </button>
+                </div>
+              </div>
+
+              <div className="mt-4 p-3 bg-blue-50 rounded-lg border border-blue-200">
+                <p className="text-sm text-blue-800">
+                  <strong>Note:</strong> Payment details will be provided during
+                  the purchase process. Please contact us to proceed with your
+                  preferred payment method.
+                </p>
+              </div>
             </div>
 
             {/* Product Details */}
@@ -318,6 +431,60 @@ const ProductDetailPage = () => {
           </div>
         </div>
       </div>
+
+      {/* QRIS Modal */}
+      {showQRISModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-lg max-w-md w-full max-h-[90vh] overflow-y-auto">
+            <div className="flex items-center justify-between p-6 border-b border-gray-200">
+              <h3 className="text-xl font-semibold text-gray-900">
+                QRIS Payment
+              </h3>
+              <button
+                onClick={closeQRISModal}
+                className="text-gray-400 hover:text-gray-600 transition-colors"
+              >
+                <X className="h-6 w-6" />
+              </button>
+            </div>
+            <div className="p-6">
+              <div className="text-center mb-6">
+                <p className="text-gray-600 mb-4">
+                  Scan this QR code with your mobile banking app to make payment
+                </p>
+                <div className="bg-white p-4 rounded-lg border-2 border-gray-200 inline-block">
+                  <img
+                    src={qrisLogo}
+                    alt="QRIS Payment Code"
+                    className="w-64 h-64 object-contain mx-auto"
+                  />
+                </div>
+              </div>
+              <div className="bg-blue-50 rounded-lg p-4 border border-blue-200">
+                <h4 className="font-semibold text-blue-900 mb-2">
+                  How to pay with QRIS:
+                </h4>
+                <ol className="text-sm text-blue-800 space-y-1">
+                  <li>1. Open your mobile banking app</li>
+                  <li>
+                    2. Select &quot;QRIS&quot; or &quot;Scan QR&quot; option
+                  </li>
+                  <li>3. Scan this QR code</li>
+                  <li>4. Enter the amount and confirm payment</li>
+                </ol>
+              </div>
+              <div className="mt-6 flex justify-end">
+                <button
+                  onClick={closeQRISModal}
+                  className="bg-wood-dark text-white px-6 py-2 rounded-lg font-medium hover:bg-wood-maroon transition-colors"
+                >
+                  Close
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

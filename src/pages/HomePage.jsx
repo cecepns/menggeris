@@ -7,7 +7,6 @@ import {
   Leaf,
   Clock,
   MapPin,
-  Play,
   Search,
 } from "lucide-react";
 import { productAPI, settingsAPI } from "../utils/api";
@@ -66,7 +65,7 @@ const HomePage = () => {
     <div className="pt-16">
       {/* Hero Section */}
       <section
-        className="text-white py-20 relative"
+        className="text-white py-10 md:py-20 relative"
         style={{
           backgroundImage: `url(${Pattern})`,
           backgroundRepeat: "repeat",
@@ -77,7 +76,7 @@ const HomePage = () => {
         <div className="absolute inset-0 bg-white/90"></div>
         <div className="max-w-7xl mx-auto px-4 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div data-aos="fade-right">
+            <div data-aos="fade-right" className="order-2 lg:order-1">
               <h1 className="text-slate-800 text-3xl md:text-4xl font-display font-bold mb-6 leading-tight">
                 An Authentic and Exclusive Souvenir from East Borneo, Heart of
                 Nusantara -
@@ -101,7 +100,7 @@ const HomePage = () => {
                 </Link>
               </div>
             </div>
-            <div data-aos="fade-left" className="relative">
+            <div data-aos="fade-left" className="relative order-1 lg:order-2">
               <div className="relative z-10 h-96 md:h-[500px] w-full overlfow-hidden">
                 <img
                   src={Banner}
@@ -268,7 +267,7 @@ const HomePage = () => {
             <h2 className="text-3xl md:text-5xl font-display font-bold mb-6 leading-tight text-gray-900">
               Bringing Nature&apos;s Craft
               <br />
-              <span className="text-wood-light">to the World</span>
+              <span className="text-wood-dark">to the World</span>
             </h2>
             <p className="text-xl text-slate-800 max-w-2xl mx-auto leading-relaxed">
               Discover our exquisite collection of wooden timepieces crafted
@@ -362,7 +361,7 @@ const HomePage = () => {
               <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-wood-maroon"></div>
             </div>
           ) : settings.maps ? (
-            <div className="rounded-lg overflow-hidden" data-aos="fade-up">
+            <div className="rounded-lg overflow-hidden">
               <div
                 className="max-w-4xl m-auto w-full h-96 md:h-[500px]"
                 dangerouslySetInnerHTML={{ __html: settings.maps }}

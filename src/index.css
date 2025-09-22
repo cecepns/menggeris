@@ -97,3 +97,29 @@
 .scrollbar-hide::-webkit-scrollbar {
   display: none;  /* Safari and Chrome */
 }
+
+/* Google Translate Styles */
+.goog-te-banner-frame {
+  display: none !important;
+}
+
+.goog-te-gadget {
+  display: none !important;
+}
+
+.goog-te-combo {
+  display: none !important;
+}
+
+/* Hide Google Translate banner */
+body {
+  top: 0 !important;
+}
+
+.goog-te-banner-frame.skiptranslate {
+  display: none !important;
+}
+
+body {
+  position: static !important;
+}

@@ -30,7 +30,7 @@ function App() {
       duration: 1000,
       easing: 'ease-in-out',
       once: true,
-      offset: 100,
+      offset: 40, // Reduced from 100px to 40px for better mobile experience
     });
   }, []);
 

@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, ShoppingBag } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 import Logo from '../assets/logo.png';
 import LogoSvlk from '../assets/svlk-logo.png';
-import LogoWonderfull from '../assets/wonderfull.png';
 import LogoTkdn from '../assets/tkdn.png';
+import GoogleTranslate from './GoogleTranslate';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -49,6 +49,7 @@ const Navbar = () => {
                   {item.name}
                 </Link>
               ))}
+              {/* <GoogleTranslate /> */}
             </div>
           </div>
 
@@ -81,6 +82,9 @@ const Navbar = () => {
                   {item.name}
                 </Link>
               ))}
+              {/* <div className="px-3 py-2">
+                <GoogleTranslate />
+              </div> */}
             </div>
           </div>
         )}
