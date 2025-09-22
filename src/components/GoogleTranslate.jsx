@@ -233,10 +233,7 @@ const GoogleTranslate = () => {
         // For localhost or single-label hosts, set without domain
         document.cookie = `googtrans=/en/${languageCode}; path=/`;
       }
-
-      setTimeout(() => {
-        window.reload();
-      }, 1000);
+      // Do not reload the page; trigger translation immediately via the widget APIs
     } catch {
       // ignore cookie write errors
     }

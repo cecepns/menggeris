@@ -127,7 +127,7 @@ const AboutPage = () => {
               {
                 icon: <Users className="h-12 w-12 text-wood-maroon" />,
                 title: "Team Size",
-                description: "2 Skilled Artisans"
+                description: "7 Skilled Artisans"
               },
               {
                 icon: <Globe className="h-12 w-12 text-wood-maroon" />,
