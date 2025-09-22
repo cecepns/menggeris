@@ -365,6 +365,9 @@ const ProductDetailPage = () => {
                     <p className="text-sm text-gray-600">
                       Secure online payments
                     </p>
+                    <p className="text-sm md:text-xs text-gray-700 mt-1">
+                      Account: <a href="mailto:menggerisofficial@gmail.com" className="text-wood-dark hover:underline">menggerisofficial@gmail.com</a>
+                    </p>
                   </div>
                 </div>
 

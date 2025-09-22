@@ -379,17 +379,17 @@ const HomePage = () => {
       </section>
 
       {/* Proud to be part of Section */}
-      <section className="py-16 bg-white">
+      <section className="py-16 bg-cream-50">
         <div className="max-w-7xl mx-auto px-4">
           <div className="text-center" data-aos="fade-up">
             <h2 className="text-3xl md:text-4xl font-display font-bold text-gray-900 mb-8">
               Proud to be part of
             </h2>
-            <div className="flex justify-center items-center">
+            <div className="flex justify-center items-center w-96 mx-auto border rounded px-8 bg-white">
               <img
                 src={WonderfullLogo}
                 alt="Wonderful Indonesia"
-                className="h-20 md:h-24 w-auto object-contain"
+                className="h-auto w-auto object-contain"
               />
             </div>
           </div>

@@ -28,7 +28,7 @@ const Navbar = () => {
             <Link to="/" className="flex items-center space-x-3">
               <img src={Logo} className="w-20 h-auto" />
               <img src={LogoSvlk} className="w-20 h-auto" />
-              <img src={LogoTkdn} className="w-20 h-auto" />
+              <img src={LogoTkdn} className="w-20 h-auto pt-[6px]" />
               {/* <img src={LogoWonderfull} className="w-20 h-auto" /> */}
             </Link>
           </div>
