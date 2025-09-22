@@ -39,8 +39,8 @@ export default {
         }
       },
       fontFamily: {
-        'display': ['Playfair Display', 'serif'],
-        'sans': ['Inter', 'system-ui', 'sans-serif'],
+        'display': ['Roboto', 'sans-serif'],
+        'sans': ['Roboto', 'system-ui', 'sans-serif'],
       },
       animation: {
         'fade-in': 'fadeIn 0.5s ease-in-out',

@@ -74,7 +74,7 @@ const AboutPage = () => {
               Each handmade creation is more than just an accessory; it is a symbol of refined 
               simplicity and timeless natural beauty. With great pride, Menggeris presents the 
               world&apos;s first wooden timepiece that unites Level-1 hardwood with the Seiko Automatic 
-              Skeleton Movement—a masterpiece born in the land of East Borneo.
+              Skeleton Movement a masterpiece born in the land of East Borneo.
             </p>
           </div>
         </div>
