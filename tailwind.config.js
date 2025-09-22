@@ -22,7 +22,7 @@ export default {
         wood: {
           light: '#d4a574',
           DEFAULT: '#a0652d',
-          dark: '#8b4513',
+          dark: '#3e171c',
           maroon: '#800020',
         },
         cream: {
