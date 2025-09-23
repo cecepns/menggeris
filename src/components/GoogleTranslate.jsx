@@ -247,7 +247,7 @@ const GoogleTranslate = () => {
         pendingLanguageRef.current = null;
       }
     }
-  }, [waitForCookieToMatch, getLanguageFromCookie, normalizeLang]);
+  }, [waitForCookieToMatch, getLanguageFromCookie, normalizeLang, setPreferredLanguage, setGoogTransCookie]);
 
   // If the select isn't present initially, observe DOM until it appears then flush pending
   useEffect(() => {
