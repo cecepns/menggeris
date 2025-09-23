@@ -38,6 +38,37 @@ const GoogleTranslate = () => {
     return normalizeLang(raw);
   }, [normalizeLang]);
 
+  // Persist preferred language explicitly and ensure cookie is written with proper scope
+  const setPreferredLanguage = useCallback((languageCode) => {
+    try {
+      window.localStorage.setItem("preferredLanguage", normalizeLang(languageCode));
+    } catch {
+      // ignore storage failures
+    }
+  }, [normalizeLang]);
+
+  const getPreferredLanguage = useCallback(() => {
+    try {
+      const stored = window.localStorage.getItem("preferredLanguage");
+      return stored ? normalizeLang(stored) : null;
+    } catch {
+      return null;
+    }
+  }, [normalizeLang]);
+
+  const setGoogTransCookie = useCallback((targetCode) => {
+    const pageLang = "en"; // keep in sync with index.html TranslateElement pageLanguage
+    const value = `/${pageLang}/${normalizeLang(targetCode)}`;
+    const isHttps = window.location.protocol === "https:";
+    const base = `googtrans=${value}; path=/; max-age=${60 * 60 * 24 * 365 * 2}`; // ~2 years
+    const secure = isHttps ? "; Secure; SameSite=Lax" : "; SameSite=Lax";
+    const host = window.location.hostname;
+    // Write cookie for exact host
+    document.cookie = `${base}${secure}`;
+    // And also with domain=.{host} to help across subdomains if any
+    document.cookie = `${base}; domain=.${host}${secure}`;
+  }, [normalizeLang]);
+
   const waitForCookieToMatch = useCallback((targetCode, { timeoutMs = 6000, intervalMs = 150 } = {}) => {
     return new Promise((resolve) => {
       const start = Date.now();
@@ -58,9 +89,17 @@ const GoogleTranslate = () => {
   }, [getLanguageFromCookie, normalizeLang]);
 
   useEffect(() => {
-    const langCode = getLanguageFromCookie();
-    setSelectedLanguage(langCode);
-  }, [getLanguageFromCookie]);
+    // Seed selectedLanguage from cookie or localStorage (preference wins)
+    const cookieLang = getLanguageFromCookie();
+    const stored = getPreferredLanguage();
+    const initial = normalizeLang(stored || cookieLang || "en");
+    setSelectedLanguage(initial);
+    // If stored preference differs from cookie, align cookie and schedule translation
+    if (stored && stored !== cookieLang) {
+      setGoogTransCookie(stored);
+      pendingLanguageRef.current = stored;
+    }
+  }, [getLanguageFromCookie, getPreferredLanguage, normalizeLang, setGoogTransCookie]);
 
   // Keep selectedLanguage in sync when Google updates the hidden select
   useEffect(() => {
@@ -154,6 +193,10 @@ const GoogleTranslate = () => {
     isTranslatingRef.current = true;
     setIsTranslating(true);
     setIsOpen(false);
+
+    // Persist intention immediately
+    setPreferredLanguage(targetCode);
+    setGoogTransCookie(targetCode);
 
     // Attempt translating with small retries if cookie doesn't settle
     let success = false;
