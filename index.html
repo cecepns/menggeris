@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Menggeris Wooden Watch E-commerce Application</title>
+    <title>Menggeris Watches and Eyewear</title>
     
     <!-- Google Translate Script -->
     <script type="text/javascript">
@@ -19,6 +19,16 @@
         
         // Add global function to change language programmatically
         window.changeGoogleLanguage = function(languageCode) {
+          // Ensure Google's cookie is aligned for immediate effect
+          try {
+            const hostname = window.location.hostname;
+            const cookieVal = `googtrans=/en/${languageCode}; path=/`;
+            document.cookie = cookieVal;
+            if (hostname && hostname.includes('.')) {
+              document.cookie = `${cookieVal}; domain=.${hostname}`;
+              document.cookie = `${cookieVal}; domain=${hostname}`;
+            }
+          } catch {}
           const selectElement = document.querySelector('.goog-te-combo');
           if (selectElement) {
             selectElement.value = languageCode;
@@ -39,6 +49,61 @@
             }, 100);
           }
         };
+
+        // Remove conflicting googtrans cookies so localStorage preference wins
+        try {
+          const hostname = window.location.hostname;
+          const cookieBase = 'googtrans=; Max-Age=0; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/';
+          document.cookie = cookieBase;
+          if (hostname && hostname.includes('.')) {
+            document.cookie = cookieBase + '; domain=.' + hostname;
+            // also clear without leading dot just in case
+            document.cookie = cookieBase + '; domain=' + hostname;
+          }
+        } catch (e) {
+          // ignore cookie cleanup errors
+        }
+
+        // Auto-apply stored language preference from localStorage if present
+        try {
+          const preferred = window.localStorage.getItem('preferredLanguage');
+          if (preferred) {
+            const applyPreferred = () => {
+              const selectEl = document.querySelector('.goog-te-combo');
+              if (selectEl) {
+                if (selectEl.value === preferred) {
+                  return true; // already set, avoid redundant change events
+                }
+                // align cookie before applying change
+                try {
+                  const hostname = window.location.hostname;
+                  const cookieVal = `googtrans=/en/${preferred}; path=/`;
+                  document.cookie = cookieVal;
+                  if (hostname && hostname.includes('.')) {
+                    document.cookie = `${cookieVal}; domain=.${hostname}`;
+                    document.cookie = `${cookieVal}; domain=${hostname}`;
+                  }
+                } catch {}
+                selectEl.value = preferred;
+                const ev = new Event('change', { bubbles: true });
+                selectEl.dispatchEvent(ev);
+                return true;
+              }
+              return false;
+            };
+            if (!applyPreferred()) {
+              const start = Date.now();
+              const tick = () => {
+                if (applyPreferred()) return;
+                if (Date.now() - start > 4000) return;
+                setTimeout(tick, 150);
+              };
+              tick();
+            }
+          }
+        } catch (e) {
+          // ignore localStorage access errors
+        }
       }
     </script>
     <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
