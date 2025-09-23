@@ -56,7 +56,7 @@ const Footer = () => {
   return (
     <footer className="bg-cream-900 text-white">
       <div className="max-w-7xl mx-auto px-4 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-5 gap-8">
           {/* Company Info */}
           <div className="col-span-1 md:col-span-2">
             <h3 className="text-xl md:text-2xl font-display font-bold mb-4">
@@ -64,10 +64,10 @@ const Footer = () => {
               Menggeris Watches and Eyewear
             </h3>
             <p className="text-gray-300 mb-4 text-sm leading-relaxed">
-              Rooted in the rich biodiversity heritage of East Borneo,
-              Menggeris stands as a manifestation of harmony between nature,
-              tradition, and modern design. Our collections are crafted from the
-              rare buttress wood of Kompassia excelsa.
+              Rooted in the rich biodiversity heritage of East Borneo, Menggeris
+              stands as a manifestation of harmony between nature, tradition,
+              and modern design. Our collections are crafted from the rare
+              buttress wood of Kompassia excelsa.
             </p>
             <div className="flex space-x-4">
               <a
@@ -104,7 +104,7 @@ const Footer = () => {
                 <Mail className="h-5 w-5 text-wood-light mt-0.5 flex-shrink-0" />
                 <div className="text-gray-300">
                   <div>{settings.email}</div>
-                  <div>iendyzelviean@menggeris.com</div>
+                  <div>hello@menggeris.com</div>
                 </div>
               </div>
             </div>
@@ -119,20 +119,39 @@ const Footer = () => {
                 <MapPin className="h-5 w-5 text-wood-light mt-0.5 flex-shrink-0" />
                 <div className="text-gray-300">
                   <div className="font-medium">Workshop and store:</div>
-                  <div>{settings.address || 'Bumi Sempaja City, Block CD No.22, Samarinda – East Borneo, Indonesia'}</div>
+                  <div>
+                    {settings.address ||
+                      "Bumi Sempaja City, Block CD No.22, Samarinda – East Borneo, Indonesia"}
+                  </div>
                 </div>
               </div>
-              
+
               {/* Warehouse Address */}
               <div className="flex items-start space-x-3">
                 <MapPin className="h-5 w-5 text-wood-light mt-0.5 flex-shrink-0" />
                 <div className="text-gray-300">
                   <div className="font-medium">Warehouse Address:</div>
-                  <div>{settings.warehouse_address || 'Jl.M.T Haryono No.50, RT.01, Desa Loh Sumber, Kec. Loa Kulu, Kutai Kartanegara75571'}</div>
+                  <div>
+                    {settings.warehouse_address ||
+                      "Jl.M.T Haryono No.50, RT.01, Desa Loh Sumber, Kec. Loa Kulu, Kutai Kartanegara75571"}
+                  </div>
                 </div>
               </div>
             </div>
           </div>
+
+          {/* Flag Counter */}
+          <a
+            href="https://info.flagcounter.com/VCPA"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <img
+              src="https://s01.flagcounter.com/count2/VCPA/bg_FFFFFF/txt_000000/border_CCCCCC/columns_2/maxflags_10/viewers_0/labels_0/pageviews_0/flags_0/percent_0/"
+              alt="Flag Counter"
+              style={{ border: 0 }}
+            />
+          </a>
         </div>
 
         <div className="border-t border-white mt-8 pt-8 text-center text-sm text-gray-400">
