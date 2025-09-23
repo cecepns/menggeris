@@ -85,11 +85,18 @@ const GoogleTranslate = () => {
     try {
       const hostname = window.location.hostname;
       const secureAttrs = window.location.protocol === 'https:' ? '; Secure; SameSite=Lax' : '';
-      const cookieVal = `googtrans=/en/${languageCode}; path=/${secureAttrs}`;
-      document.cookie = cookieVal;
-      if (hostname && hostname.includes(".")) {
-        document.cookie = `${cookieVal}; domain=.${hostname}`;
-        document.cookie = `${cookieVal}; domain=${hostname}`;
+      const maxAge = '; Max-Age=31536000';
+      const baseDomain = (() => {
+        const parts = hostname.split('.');
+        if (parts.length >= 2) {
+          return parts.slice(-2).join('.');
+        }
+        return hostname;
+      })();
+      const cookieCore = `googtrans=/en/${languageCode}`;
+      document.cookie = `${cookieCore}; path=/${maxAge}${secureAttrs}`;
+      if (baseDomain && baseDomain.includes('.')) {
+        document.cookie = `${cookieCore}; path=/; domain=.${baseDomain}${maxAge}${secureAttrs}`;
       }
     } catch {
       // no-op
