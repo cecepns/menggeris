@@ -22,7 +22,8 @@
           // Ensure Google's cookie is aligned for immediate effect
           try {
             const hostname = window.location.hostname;
-            const cookieVal = `googtrans=/en/${languageCode}; path=/`;
+            const secureAttrs = window.location.protocol === 'https:' ? '; Secure; SameSite=Lax' : '';
+            const cookieVal = `googtrans=/en/${languageCode}; path=/${secureAttrs}`;
             document.cookie = cookieVal;
             if (hostname && hostname.includes('.')) {
               document.cookie = `${cookieVal}; domain=.${hostname}`;
@@ -50,20 +51,6 @@
           }
         };
 
-        // Remove conflicting googtrans cookies so localStorage preference wins
-        try {
-          const hostname = window.location.hostname;
-          const cookieBase = 'googtrans=; Max-Age=0; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/';
-          document.cookie = cookieBase;
-          if (hostname && hostname.includes('.')) {
-            document.cookie = cookieBase + '; domain=.' + hostname;
-            // also clear without leading dot just in case
-            document.cookie = cookieBase + '; domain=' + hostname;
-          }
-        } catch (e) {
-          // ignore cookie cleanup errors
-        }
-
         // Auto-apply stored language preference from localStorage if present
         try {
           const preferred = window.localStorage.getItem('preferredLanguage');
@@ -77,7 +64,8 @@
                 // align cookie before applying change
                 try {
                   const hostname = window.location.hostname;
-                  const cookieVal = `googtrans=/en/${preferred}; path=/`;
+                  const secureAttrs = window.location.protocol === 'https:' ? '; Secure; SameSite=Lax' : '';
+                  const cookieVal = `googtrans=/en/${preferred}; path=/${secureAttrs}`;
                   document.cookie = cookieVal;
                   if (hostname && hostname.includes('.')) {
                     document.cookie = `${cookieVal}; domain=.${hostname}`;

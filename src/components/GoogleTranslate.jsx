@@ -84,7 +84,8 @@ const GoogleTranslate = () => {
     // Align Google's cookie for widget behavior and persist preference in localStorage
     try {
       const hostname = window.location.hostname;
-      const cookieVal = `googtrans=/en/${languageCode}; path=/`;
+      const secureAttrs = window.location.protocol === 'https:' ? '; Secure; SameSite=Lax' : '';
+      const cookieVal = `googtrans=/en/${languageCode}; path=/${secureAttrs}`;
       document.cookie = cookieVal;
       if (hostname && hostname.includes(".")) {
         document.cookie = `${cookieVal}; domain=.${hostname}`;
