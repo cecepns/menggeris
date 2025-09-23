@@ -83,7 +83,7 @@ const Navbar = () => {
                 </Link>
               ))}
               <div className="px-3 py-2">
-                <GoogleTranslate />
+                <GoogleTranslate onComplete={() => setIsOpen(false)} />
               </div>
             </div>
           </div>

@@ -1,7 +1,8 @@
 import { useCallback, useEffect, useRef, useState } from "react";
+import PropTypes from "prop-types";
 import { Globe } from "lucide-react";
 
-const GoogleTranslate = () => {
+const GoogleTranslate = ({ closeOnComplete = true, onComplete } = {}) => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [isTranslating, setIsTranslating] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
@@ -192,7 +193,6 @@ const GoogleTranslate = () => {
 
     isTranslatingRef.current = true;
     setIsTranslating(true);
-    setIsOpen(false);
 
     // Persist intention immediately (cookie will be set only if needed)
     setPreferredLanguage(targetCode);
@@ -222,6 +222,7 @@ const GoogleTranslate = () => {
       }
     }
 
+    let finalCodeVar = null;
     try {
       if (!success) {
         // Final wait one more time in case it settled late
@@ -236,6 +237,7 @@ const GoogleTranslate = () => {
       if (finalCode) {
         setSelectedLanguage(finalCode);
       }
+      finalCodeVar = finalCode;
     } finally {
       // Clear any pending poll timer
       if (waitTimerRef.current) {
@@ -245,6 +247,12 @@ const GoogleTranslate = () => {
       // Mark as idle
       isTranslatingRef.current = false;
       setIsTranslating(false);
+      if (closeOnComplete) {
+        setIsOpen(false);
+      }
+      if (typeof onComplete === "function") {
+        onComplete(finalCodeVar);
+      }
 
       // If another language was requested meanwhile, process it now
       if (pendingLanguageRef.current && pendingLanguageRef.current !== targetCode) {
@@ -256,7 +264,7 @@ const GoogleTranslate = () => {
         pendingLanguageRef.current = null;
       }
     }
-  }, [waitForCookieToMatch, getLanguageFromCookie, normalizeLang, setPreferredLanguage, setGoogTransCookie]);
+  }, [waitForCookieToMatch, getLanguageFromCookie, normalizeLang, setPreferredLanguage, setGoogTransCookie, closeOnComplete, onComplete]);
 
   // If the select isn't present initially, observe DOM until it appears then flush pending
   useEffect(() => {
@@ -365,7 +373,7 @@ const GoogleTranslate = () => {
       )}
       {/* Optional minimal loading indicator */}
       {isTranslating && (
-        <div className="absolute right-0 mt-1 text-xs text-gray-500 select-none">
+        <div className="absolute -top-1 md:top-7 right-0 mt-1 text-xs text-gray-500 select-none">
           Translating...
         </div>
       )}
@@ -374,3 +382,8 @@ const GoogleTranslate = () => {
 };
 
 export default GoogleTranslate;
+
+GoogleTranslate.propTypes = {
+  closeOnComplete: PropTypes.bool,
+  onComplete: PropTypes.func,
+};
