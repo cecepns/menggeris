@@ -194,13 +194,13 @@ const GoogleTranslate = () => {
     setIsTranslating(true);
     setIsOpen(false);
 
-    // Persist intention immediately
+    // Persist intention immediately (cookie will be set only if needed)
     setPreferredLanguage(targetCode);
-    setGoogTransCookie(targetCode);
 
-    // Attempt translating with small retries if cookie doesn't settle
+    // Attempt translating with small retries; if cookie doesn't settle, set it then retry
     let success = false;
     const maxAttempts = 2;
+    let cookieForced = false;
     for (let attempt = 0; attempt < maxAttempts && !success; attempt += 1) {
       // If another request arrived during attempts, break to let queue run later
       if (pendingLanguageRef.current && pendingLanguageRef.current !== targetCode) {
@@ -213,13 +213,22 @@ const GoogleTranslate = () => {
       setSelectedLanguage(targetCode);
       success = await waitForCookieToMatch(targetCode);
       if (!success) {
-        await new Promise((r) => setTimeout(r, 300));
+        // If after first try cookie still not updated, force cookie then try again next loop
+        if (!cookieForced) {
+          setGoogTransCookie(targetCode);
+          cookieForced = true;
+        }
+        await new Promise((r) => setTimeout(r, 200));
       }
     }
 
     try {
       if (!success) {
         // Final wait one more time in case it settled late
+        setGoogTransCookie(targetCode);
+        // Nudge translate one last time
+        select.value = targetCode;
+        select.dispatchEvent(new Event("change"));
         await waitForCookieToMatch(targetCode);
       }
       // Sync UI to final cookie value to avoid drift
