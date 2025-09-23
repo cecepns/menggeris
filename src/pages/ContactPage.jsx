@@ -150,7 +150,6 @@ I'm interested in learning more about Menggeris products. Could you please provi
                     <p className="text-gray-600">
                       {settings.email || 'menggerisofficial@gmail.com'}
                     </p>
-                    <p className="text-gray-600">hello@menggeris.com</p>
                   </div>
                 </div>
 

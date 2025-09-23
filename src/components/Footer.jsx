@@ -104,7 +104,6 @@ const Footer = () => {
                 <Mail className="h-5 w-5 text-wood-light mt-0.5 flex-shrink-0" />
                 <div className="text-gray-300">
                   <div>{settings.email}</div>
-                  <div>hello@menggeris.com</div>
                 </div>
               </div>
             </div>
